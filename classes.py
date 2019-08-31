@@ -40,6 +40,29 @@ class Player():
         sleep(5)
         sys.exit(0)
 
+class Enemy():
+    def __init__(self,name,health,armor):
+        self.name = name
+        self.health = health
+        self.armor = armor
+        self.is_alive = True
+    
+    def check_status(self):
+        if self.health <= 0:
+            self.is_alive = False
+        else:
+            pass
+        
+        if self.is_alive == False:
+            self.die()
+    
+    def change_health(self,value):
+        if self.health > 0:
+            self.health = self.health - value
+        elif self.health <= 0:
+            self.is_alive = False
+        self.check_status
+
 
 class Item():
     def __init__(self,name,description,value):
@@ -62,9 +85,5 @@ class Armor(Item):
         super().__init__(name, description, value)
 
 
-class Enemy():
-    def __init__(self,name,health,armor):
-        self.name = name
-        self.health = health
-        self.armor = armor
+
      
