@@ -40,6 +40,8 @@ class Player():
         sleep(5)
         sys.exit(0)
 
+# Enemies inherit most attributes from the player indirectly
+# They work very similarly, but are completely independent
 class Enemy():
     def __init__(self,name,health,armor):
         self.name = name
@@ -73,12 +75,14 @@ class Item():
         return "{}\n=====\n{}\nValue: {}\n".format(self.name, self.description, self.value)
 
 
+# Weapons inherit from items, but have another damage var
 class Weapon(Item):
     def __init__(self,name,description,value,damage):
         self.damage = damage
         super().__init__(name, description, value)
 
 
+# Armor inherits from items, but also have an armor var
 class Armor(Item):
     def __init__(self,name,description,value,armor):
         self.armor = armor

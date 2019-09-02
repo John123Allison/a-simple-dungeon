@@ -1,3 +1,4 @@
 # a-simple-dungeon
 
-A work in progress text-based choose-your-own adventure. Feel free to follow development in bits and pieces through my commits!
+A work in progress engine for text-based adventure games. Includes basic classes for players, enemies, items, weapons, etc. and a grid-based map system that uses functions to call new locations.
+
