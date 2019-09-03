@@ -1,13 +1,17 @@
 from time import sleep
 import sys
 
+
+# most values of players are stored as variables, with the inventory as a simple list
+# values of the player's status are changed by methods attached to the class
 class Player():
     def __init__(self):
         self.inventory = []
-        self.health = 100
-        self.armor = 0
-        self.is_alive = True
+        self.health = 100 # affected by interactions with weapon objects
+        self.armor = 0 # affected by inventory
+        self.is_alive = True # set to false to trigger restart and/or death sequence
         self.gold = 0
+        self.can_sell = False # set to true when in market or speaking to a vendor
 
     def check_status(self):
         if self.health <= 0:
@@ -28,12 +32,23 @@ class Player():
     def add_to_inventory(self,item):
         self.inventory.append(item)
 
-    def sell_item(self,item):
-        if item in self.inventory:
-            self.inventory.remove(item)
-            self.gold = self.gold + item.value
+    def list_inventory():
+        if not inventory:
+            print("Inventory is empty")
         else:
-            print("Error: item doesn't exist")
+            print("Inventory: ")
+            for x in inventory:
+                print(x.name)    
+
+    def sell_item(self,item):
+        if self.can_sell == True:
+            if item in self.inventory:
+                self.inventory.remove(item)
+                self.gold = self.gold + item.value
+            else:
+                print("Error: item doesn't exist")
+        else:
+            print("You can't sell that right now.")
     
     def die():
         print("You're dead! Game over ):")
