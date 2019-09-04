@@ -12,5 +12,6 @@ def main():
     test_axe = Weapon("axe","a hefty axe",100,10)
     test_gem = Item("gem","a shiny gem",200)
 
+
 if __name__ == '__main__':
     main()

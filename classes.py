@@ -12,6 +12,24 @@ class Player():
         self.is_alive = True # set to false to trigger restart and/or death sequence
         self.gold = 0
         self.can_sell = False # set to true when in market or speaking to a vendor
+        self.available_movement = ["north","east","south","west"]
+        self.x = 0 # coordinates
+        self.y = 0
+
+    def move(direction):
+        if direction in available_movement:
+            if "north" in direction:
+                y = y + 1
+            elif "east" in direction:
+                x = x + 1
+            elif "south" in direction:
+                y = y - 1
+            elif "west" in direction:
+                x = x - 1
+            else:
+                print("error: invalid direction")
+        else:
+            print("You can't go that way!")
 
     def check_status(self):
         if self.health <= 0:
