@@ -1,6 +1,14 @@
 from classes import *
 from time import sleep
+import sys
+import os
 
+def clearScreen():
+    # Clear the previously drawn text:
+    if sys.platform == 'win32':
+        os.system('cls') # Clears Windows terminal.
+    else:
+        os.system('clear') # Clears macOS/Linux terminal.
 
 # begin main 
 def main():
