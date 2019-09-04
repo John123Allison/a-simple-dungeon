@@ -16,22 +16,29 @@ class Player():
         self.x = 0 # coordinates
         self.y = 0
 
-    def move(direction):
-        if direction in available_movement:
+    def move(self, direction):
+        if direction in self.available_movement:
             if "north" in direction:
-                y = y + 1
+                self.y = self.y + 1
             elif "east" in direction:
-                x = x + 1
+                self.x = self.x + 1
             elif "south" in direction:
-                y = y - 1
+                self.y = self.y - 1
             elif "west" in direction:
-                x = x - 1
+                self.x = self.x - 1
             else:
                 print("error: invalid direction")
         else:
             print("You can't go that way!")
 
+
     def check_status(self):
+        print("Current health: %s" % (self.health))
+        print("Current armor: %s" % (self.armor))
+        print("Current gold: %s" % (self.gold))
+        print("Coordinates: (%s,%s)" % (self.x,self.y))
+
+    def status(self):
         if self.health <= 0:
             self.is_alive = False
         else:
@@ -42,7 +49,7 @@ class Player():
     
     def change_health(self,value):
         if self.health > 0:
-            self.health = self.health - value
+            self.health = self.health + value
         elif self.health <= 0:
             self.is_alive = False
         self.check_status
@@ -50,12 +57,12 @@ class Player():
     def add_to_inventory(self,item):
         self.inventory.append(item)
 
-    def list_inventory():
-        if not inventory:
+    def list_inventory(self):
+        if not self.inventory:
             print("Inventory is empty")
         else:
             print("Inventory: ")
-            for x in inventory:
+            for x in self.inventory:
                 print(x.name)    
 
     def sell_item(self,item):
@@ -72,6 +79,7 @@ class Player():
         print("You're dead! Game over ):")
         sleep(5)
         sys.exit(0)
+
 
 # Enemies inherit most attributes from the player indirectly
 # They work very similarly, but are completely independent
