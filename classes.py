@@ -12,31 +12,12 @@ class Player():
         self.is_alive = True # set to false to trigger restart and/or death sequence
         self.gold = 0
         self.can_sell = False # set to true when in market or speaking to a vendor
-        self.available_movement = ["north","east","south","west"]
-        self.x = 0 # coordinates
-        self.y = 0
-
-    def move(self, direction):
-        if direction in self.available_movement:
-            if "north" in direction:
-                self.y = self.y + 1
-            elif "east" in direction:
-                self.x = self.x + 1
-            elif "south" in direction:
-                self.y = self.y - 1
-            elif "west" in direction:
-                self.x = self.x - 1
-            else:
-                print("error: invalid direction")
-        else:
-            print("You can't go that way!")
 
 
     def check_status(self):
         print("Current health: %s" % (self.health))
         print("Current armor: %s" % (self.armor))
         print("Current gold: %s" % (self.gold))
-        print("Coordinates: (%s,%s)" % (self.x,self.y))
 
     def status(self):
         if self.health <= 0:
@@ -128,7 +109,3 @@ class Armor(Item):
     def __init__(self,name,description,value,armor):
         self.armor = armor
         super().__init__(name, description, value)
-
-
-
-     
