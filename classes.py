@@ -13,7 +13,6 @@ class Player():
         self.gold = 0
         self.can_sell = False # set to true when in market or speaking to a vendor
 
-
     def check_status(self):
         print("Current health: %s" % (self.health))
         print("Current armor: %s" % (self.armor))
