@@ -5,14 +5,15 @@ from time import sleep
 
 # begin main 
 def main():
-    # always define the player as player = Player()
     # initialize player and inventory
     player = Player()
 
     # print welcome message
+    clear_screen()
     print("------------------------")
     print("Welcome!")
     print("------------------------")
+
 
     sleep(5)
     clear_screen()
