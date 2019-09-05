@@ -14,7 +14,7 @@ def clear_screen():
 # function for generating items
 def generate_item():
     name_list = ["gem","candelbra","ruby","stick","mug"] # list of names that can be pulled from
-    name = choice(name_list)
+    name = choice(name_list) # choose from the name list at random
 
     # check what item was generated and assign a descripion and random value from a range 
     # that fits the item's name
@@ -40,7 +40,7 @@ def generate_item():
 # function for generating weapons
 def generate_weapon():
     name_list = ["axe","sword","club"]
-    name = choice(name_list)
+    name = choice(name_list) # choose from the name list at random
 
     # check what item is generated and assign a description and random damage value from a range
     if name == "axe":
