@@ -47,11 +47,12 @@ class Player():
 
     def sell_item(self,item):
         if self.can_sell == True:
-            if item in self.inventory:
-                self.inventory.remove(item)
-                self.gold = self.gold + item.value
-            else:
-                print("Error: item doesn't exist")
+            for x in self.inventory:
+                if x.name == item:
+                    self.inventory.remove(x)
+                    self.gold = self.gold + x.value
+                else:
+                    print("Error: item doesn't exist")
         else:
             print("You can't sell that right now.")
     
@@ -94,6 +95,10 @@ class Item():
         self.value = value
     def __str__(self):
         return "{}\n=====\n{}\nValue: {}\n".format(self.name, self.description, self.value)
+    def __eq__(self,other):
+        return self.name == other
+    def description(self):
+        return "%s: %s. Damage: %s. Worth %s gold" % (self.name, self.description, self.damage, self.value)
 
 
 # Weapons inherit from items, but have another damage var

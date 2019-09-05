@@ -8,7 +8,6 @@ def main():
     # always define the player as player = Player()
     # initialize player and inventory
     player = Player()
-    inventory = player.inventory   
 
     # print welcome message
     print("------------------------")
@@ -18,8 +17,13 @@ def main():
     sleep(5)
     clear_screen()
 
-    test_generation = generate_item()        
-    player.add_to_inventory(test_generation)
+
+    # test conditions
+    test_item = generate_item()      
+    test_weapon = generate_weapon()
+    player.add_to_inventory(test_item)
+    player.add_to_inventory(test_weapon)
+    player.can_sell = True
 
 
     while True:
