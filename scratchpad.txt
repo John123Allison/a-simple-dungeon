@@ -1,0 +1,12 @@
+# room handling
+
+--classes.py--
+Class Room():
+    inventory = []
+    exits = []
+
+--main.py--
+while True:
+    if room == "foo":
+        room_inv = room.inventory
+        room_exits = room.exits
