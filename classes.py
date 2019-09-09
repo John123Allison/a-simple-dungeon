@@ -11,7 +11,7 @@ class Player():
         self.armor = 0 # affected by inventory
         self.is_alive = True # set to false to trigger restart and/or death sequence
         self.gold = 0
-        self.can_sell = False # set to true when in market or speaking to a vendor
+        self.room = 0
 
     def check_status(self):
         print("Current health: %s" % (self.health))
@@ -46,15 +46,12 @@ class Player():
                 print(x.name)    
 
     def sell_item(self,item):
-        if self.can_sell == True:
-            for x in self.inventory:
-                if x.name == item:
-                    self.inventory.remove(x)
-                    self.gold = self.gold + x.value
-                else:
-                    print("Error: item doesn't exist")
-        else:
-            print("You can't sell that right now.")
+        for x in self.inventory:
+            if x.name == item:
+                self.inventory.remove(x)
+                self.gold = self.gold + x.value
+            else:
+                print("Error: item doesn't exist")
     
     def die():
         print("You're dead! Game over ):")

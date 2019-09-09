@@ -1,9 +1,13 @@
 # room handling
 
---classes.py--
-Class Room():
-    inventory = []
-    exits = []
+--worldmap.py--
+while True:
+    switch case:
+        0 = room0()
+
+def room0(argument)
+    # do things based on argument passed
+    
 
 --main.py--
 while True:

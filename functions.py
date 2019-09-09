@@ -57,3 +57,19 @@ def generate_weapon():
         weapon_damage = choice(range(5,15))
 
     return Weapon(weapon_name,weapon_description,weapon_value,weapon_damage)
+
+
+def generate_room_inv():
+    amount_generated = choice(range(1,10))
+
+    inventory = []
+
+    for i in range(amount_generated):
+        type_gen = choice(range(1,2))
+
+        if type_gen == 1:
+            item = generate_item()
+            inventory.append(item)
+        elif type_gen == 2:
+            weapon = generate_weapon()
+            inventory.append(weapon)
