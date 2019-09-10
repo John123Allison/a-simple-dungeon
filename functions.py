@@ -105,17 +105,29 @@ def get_action(player,room_inv,can_sell,exits):
         list_room_inv(room_inv)
     # ------move-----
     elif "north" in action:
-        f = exits["north"]
-        f(player)
+        if "north" in exits:
+            f = exits["north"]
+            f(player)
+        else:
+            print("You cannot go that way.")
     elif "south" in action:
-        f = exits["south"]
-        f(player)
+        if "south" in exits:
+            f = exits["south"]
+            f(player)
+        else:
+            print("You cannot go that way.")
     elif "east" in action:
-        f = exits["east"]
-        f(player)
+        if "east" in exits:
+            f = exits["east"]
+            f(player)
+        else:
+            print("You cannot go that way.")
     elif "west" in action:
-        f = exits["west"]
-        f(player)
+        if "west" in exits:
+            f = exits["west"]
+            f(player)
+        else:
+            print("You cannot go that way.")
     # -----looting-----
     elif "pick up" in action:
         list_room_inv(room_inv)

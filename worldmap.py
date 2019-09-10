@@ -19,7 +19,7 @@ def test_room(player):
 
 def test_room2(player):
     # intialize room inventory and variables
-    test_room2_inv = None
+    test_room2_inv = [Weapon("Silver Sword","A shortsword made of silver. Warewolves hate these.",500,8)]
     can_sell = False
     exits = {"south": test_room}
 
