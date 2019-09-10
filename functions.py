@@ -16,7 +16,7 @@ def generate_item():
     name_list = ["gem","candelbra","ruby","stick","mug"] # list of names that can be pulled from
     item_name = choice(name_list) # choose from the name list at random
 
-    # check what item was generated and assign a descripion and random value from a range 
+    # check what item was generated and assign a descripion and random value from a range
     # that fits the item's name
     if item_name == "gem":
         item_description = "a small, shiny gem"
@@ -83,7 +83,7 @@ def list_room_inv(room_inv):
     else:
         print("In the room is: ")
         for x in room_inv:
-            print(x.name)   
+            print(x.name)
 
 
 def loot_item(player,item,room_inv):
@@ -93,9 +93,9 @@ def loot_item(player,item,room_inv):
     player.list_inventory()
 
 
-def get_action(player,room_inv,can_sell):
+def get_action(player,room_inv,can_sell,exits):
     # -----INPUT-----
-    action = input("> ")
+    action = input("> ").lower()
 
     # check current status
     if action == "status":
@@ -103,6 +103,19 @@ def get_action(player,room_inv,can_sell):
     # ------list room contents-----
     elif "look" in action:
         list_room_inv(room_inv)
+    # ------move-----
+    elif "north" in action:
+        f = exits["north"]
+        f(player)
+    elif "south" in action:
+        f = exits["south"]
+        f(player)
+    elif "east" in action:
+        f = exits["east"]
+        f(player)
+    elif "west" in action:
+        f = exits["west"]
+        f(player)
     # -----looting-----
     elif "pick up" in action:
         list_room_inv(room_inv)
@@ -119,6 +132,5 @@ def get_action(player,room_inv,can_sell):
     # ------------------------
     else:
         pass
-    
+
     return action
-   

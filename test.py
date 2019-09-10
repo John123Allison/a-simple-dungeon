@@ -4,7 +4,7 @@ from worldmap import *
 from time import sleep
 
 
-# begin main 
+# begin main
 def main():
     # initialize player and inventory
     player = Player()
@@ -16,12 +16,12 @@ def main():
     print("------------------------")
 
 
-    sleep(5)
+    sleep(1)
     clear_screen()
 
 
     test_room(player)
-        
+
 
 if __name__ == '__main__':
     main()
