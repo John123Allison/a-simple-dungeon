@@ -14,3 +14,6 @@ while True:
     if room == "foo":
         room_inv = room.inventory
         room_exits = room.exits
+
+
+call initial room in main.py --> call rooms in worldmap.py based on actions

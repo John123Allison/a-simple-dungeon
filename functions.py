@@ -73,3 +73,52 @@ def generate_room_inv():
         elif type_gen == 2:
             weapon = generate_weapon()
             inventory.append(weapon)
+
+    return inventory
+
+
+def list_room_inv(room_inv):
+    if not room_inv:
+            print("Room is empty")
+    else:
+        print("In the room is: ")
+        for x in room_inv:
+            print(x.name)   
+
+
+def loot_item(player,item,room_inv):
+    for x in room_inv:
+        if x.name == item:
+            player.inventory.append(x)
+    player.list_inventory()
+
+
+def get_action(player,room_inv,can_sell):
+    # -----INPUT-----
+    action = input("> ")
+
+    # check current status
+    if action == "status":
+        player.check_status()
+    # ------list room contents-----
+    elif "look" in action:
+        list_room_inv(room_inv)
+    # -----looting-----
+    elif "pick up" in action:
+        list_room_inv(room_inv)
+        pick_up = input("What do you want to pick up?\n> ")
+        loot_item(player,pick_up,room_inv)
+    # ------sell items---------
+    elif action == "sell":
+        player.list_inventory()
+        if can_sell == True:
+            item_to_sell = input("What do you want to sell?\n> ")
+            player.sell_item(item_to_sell)
+        else:
+            print("You can't sell right now.")
+    # ------------------------
+    else:
+        pass
+    
+    return action
+   

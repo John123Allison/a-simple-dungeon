@@ -52,7 +52,7 @@ class Player():
                 self.gold = self.gold + x.value
             else:
                 print("Error: item doesn't exist")
-    
+                
     def die():
         print("You're dead! Game over ):")
         sleep(5)
