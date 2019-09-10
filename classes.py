@@ -7,26 +7,69 @@ import sys
 class Player():
     def __init__(self):
         self.inventory = []
+        self.spells = []
         self.health = 100 # affected by interactions with weapon objects
+        self.max_health = self.health
+        self.mana = 20
+        self.max_mana = self.mana
         self.armor = 0 # affected by inventory
+        self.weapon = 0
         self.is_alive = True # set to false to trigger restart and/or death sequence
         self.gold = 0
         self.room = 0
 
+        #Human Fighter
+        self.race = "Human"
+        self.job = "Fighter"
+        self.level = 1
+        self.xp = 0
+        self.constitution = 6
+        self.strength = 7
+        self.dexterity = 6
+        self.intellect = 4
+        self.luck = 5
+
+    def xp_need(self):
+            return(30+(self.level*25+self.level*10))
+
     def check_status(self):
-        print("Current health: %s" % (self.health))
-        print("Current armor: %s" % (self.armor))
-        print("Current gold: %s" % (self.gold))
+        #Character
+        print("--------------------------------------")
+        print("Level: %s %s %s" % (self.level,self.race,self.job))
+        print("XP: %s / %s" % (self.xp,self.xp_need()))
+        print("Health: %s / %s" % (self.health,self.max_health))
+        print("Mana: %s / %s" % (self.mana,self.max_mana))
+        #Equipment
+        print("--------------------------------------")
+        if self.weapon != 0:
+            print("Equipped weapon: %s" % (self.weapon.name))
+        else:
+            print("Equipped weapon: Unarmed")
+        if self.armor != 0:
+            print("Equipped armor: %s" % (self.armor.name))
+        else:
+            print("Equipped armor: Unclothed")
+        print("Gold: %s" % (self.gold))
+        #Stats
+        print("--------------------------------------")
+        print("CON: %s" % (self.constitution))
+        print("STR: %s" % (self.strength))
+        print("DEX: %s" % (self.dexterity))
+        print("INT: %s" % (self.intellect))
+        print("LUK: %s" % (self.luck))
+
+
+
 
     def status(self):
         if self.health <= 0:
             self.is_alive = False
         else:
             pass
-        
+
         if self.is_alive == False:
             self.die()
-    
+
     def change_health(self,value):
         if self.health > 0:
             self.health = self.health + value
@@ -37,13 +80,16 @@ class Player():
     def add_to_inventory(self,item):
         self.inventory.append(item)
 
+    def learn_spell(self,spell):
+        self.spells.append(spell)
+
     def list_inventory(self):
         if not self.inventory:
             print("Inventory is empty")
         else:
             print("Inventory: ")
             for x in self.inventory:
-                print(x.name)    
+                print(x.name)
 
     def sell_item(self,item):
         for x in self.inventory:
@@ -52,7 +98,7 @@ class Player():
                 self.gold = self.gold + x.value
             else:
                 print("Error: item doesn't exist")
-                
+
     def die():
         print("You're dead! Game over ):")
         sleep(5)
@@ -67,16 +113,16 @@ class Enemy():
         self.health = health
         self.armor = armor
         self.is_alive = True
-    
+
     def check_status(self):
         if self.health <= 0:
             self.is_alive = False
         else:
             pass
-        
+
         if self.is_alive == False:
             self.die()
-    
+
     def change_health(self,value):
         if self.health > 0:
             self.health = self.health - value

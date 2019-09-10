@@ -129,7 +129,7 @@ def get_action(player,room_inv,can_sell,exits):
         else:
             print("You cannot go that way.")
     # -----looting-----
-    elif "pick up" in action:
+    elif "pick up" in action or "take" in action or "loot" in action or "grab" in action:
         list_room_inv(room_inv)
         pick_up = input("What do you want to pick up?\n> ")
         loot_item(player,pick_up,room_inv)
