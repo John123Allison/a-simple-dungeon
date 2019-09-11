@@ -1,4 +1,5 @@
 from time import sleep
+from random import choice
 import sys
 
 
@@ -23,7 +24,7 @@ class Player():
         self.job = "Fighter"
         self.level = 1
         self.xp = 0
-        self.constitution = 6
+        self.constitution = 5
         self.strength = 7
         self.dexterity = 6
         self.intellect = 4
@@ -35,20 +36,20 @@ class Player():
     def check_status(self):
         #Character
         print("--------------------------------------")
-        print("Level: %s %s %s" % (self.level,self.race,self.job))
+        print("Level %s %s %s" % (self.level,self.race,self.job))
         print("XP: %s / %s" % (self.xp,self.xp_need()))
         print("Health: %s / %s" % (self.health,self.max_health))
         print("Mana: %s / %s" % (self.mana,self.max_mana))
         #Equipment
         print("--------------------------------------")
         if self.weapon != 0:
-            print("Equipped weapon: %s" % (self.weapon.name))
+            print("Weapon: %s" % (self.weapon.name))
         else:
-            print("Equipped weapon: Unarmed")
+            print("Weapon: Unarmed")
         if self.armor != 0:
-            print("Equipped armor: %s" % (self.armor.name))
+            print("Armor: %s" % (self.armor.name))
         else:
-            print("Equipped armor: Unclothed")
+            print("Armor: Unclothed")
         print("Gold: %s" % (self.gold))
         #Stats
         print("--------------------------------------")
@@ -57,9 +58,7 @@ class Player():
         print("DEX: %s" % (self.dexterity))
         print("INT: %s" % (self.intellect))
         print("LUK: %s" % (self.luck))
-
-
-
+        print("--------------------------------------")
 
     def status(self):
         if self.health <= 0:
@@ -79,6 +78,63 @@ class Player():
 
     def add_to_inventory(self,item):
         self.inventory.append(item)
+
+    def unequip_weapon(self):
+        if self.weapon == 0:
+            print("You are not wielding anything")
+        else:
+            print(self.weapon.name + " was unequipped")
+            self.inventory.append(self.weapon)
+            self.weapon = 0
+
+    def equip_weapon(self,item):
+        if self.weapon != 0:
+            self.unequip_weapon()
+        equipped_something = False
+        for x in self.inventory:
+            if x.name.lower() == item:
+                self.weapon = x
+                self.inventory.remove(x)
+                print(self.weapon.name + " is now equipped")
+                equipped_something = True
+                break
+        if equipped_something == False:
+            print("That's not a weapon")
+
+    def gain_xp(self,amount):
+        self.xp += amount
+        xpneed = self.xp_need()
+        # check for level up
+        while self.xp >= xpneed:
+            self.xp -= xpneed
+            self.level += 1
+            print("Level Up!\nYou reached level %s" % (self.level))
+            i = 0
+            # increase random stats
+            while i < choice(range(2,4)):
+                i += 1
+                a = choice(range(1,5))
+                if (a == 1):
+                    self.constitution += 1
+                    print("Constitution increases by 1")
+                elif (a == 2):
+                    self.strength += 1
+                    print("Strength increases by 1")
+                elif (a == 3):
+                    self.dexterity += 1
+                    print("Dexterity increases by 1")
+                elif (a == 4):
+                    self.intellect += 1
+                    print("Intellect increases by 1")
+                elif (a == 5):
+                    self.luck += 1
+                    print("Luck increases by 1")
+
+            # Update resources to reflect new stats
+            self.max_health = self.constitution*20
+            self.health = self.max_health
+            self.max_mana = self.intellect*5
+            self.mana = self.max_mana
 
     def learn_spell(self,spell):
         self.spells.append(spell)

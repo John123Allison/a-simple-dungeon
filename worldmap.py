@@ -19,12 +19,12 @@ def test_room(player):
 
 def test_room2(player):
     # intialize room inventory and variables
-    test_room2_inv = [Weapon("Silver Sword","A shortsword made of silver. Warewolves hate these.",500,8)]
+    test_room2_inv = [Weapon("dagger","A simple blade, dull and rusted.",5,3),Armor("old rags","Gross and worn old rags, provides a tiny amount of protection.",2,1)]
     can_sell = False
     exits = {"south": test_room}
 
     # introduction
-    print("You enter into an empty chamber, devoid of any furnishings.")
+    print("You enter into an empty chamber, devoid of any furnishings. There is a rusty dagger and some rags on the floor.")
 
     # persistently get input, passing the player, the room inventory, and whether or not you can sell items in this space.
     while True:

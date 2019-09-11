@@ -88,8 +88,9 @@ def list_room_inv(room_inv):
 
 def loot_item(player,item,room_inv):
     for x in room_inv:
-        if x.name == item:
+        if x.name.lower() == item:
             player.inventory.append(x)
+            room_inv.remove(x)
     player.list_inventory()
 
 
@@ -98,8 +99,10 @@ def get_action(player,room_inv,can_sell,exits):
     action = input("> ").lower()
 
     # check current status
-    if action == "status":
+    if action == "status" or action == "char":
         player.check_status()
+    elif "inventory" in action or "bag" in action:
+        player.list_inventory()
     # ------list room contents-----
     elif "look" in action:
         list_room_inv(room_inv)
@@ -141,7 +144,31 @@ def get_action(player,room_inv,can_sell,exits):
             player.sell_item(item_to_sell)
         else:
             print("You can't sell right now.")
+    # ------inventory management------
+    elif action == "wield":
+        player.list_inventory()
+        if len(player.inventory) > 0:
+            item_to_equip = input("Equip which weapon?\n> ")
+            player.equip_weapon(item_to_equip)
+
+    elif action == "stow":
+        player.unequip_weapon()
     # ------------------------
+    elif action == "gainxp":
+        print("You gained 100 xp")
+        player.gain_xp(100)
+    elif action == "help":
+        print("""
+        Status: Check on yourself
+        Look: Find nearby points of interest
+        North/South/East/West: Move to a new location
+        Take: Brings up a list of lootable items
+        Sell: Sell items if there is a vendor in the room
+        Wield: Equip a weapon from your inventory
+        Stow: Unequip your weapon and store it in your inventory
+        Drop: Remove and item from your inventory
+        """)
+
     else:
         pass
 
