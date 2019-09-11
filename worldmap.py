@@ -7,6 +7,7 @@ def test_room(player):
     # intialize room inventory and variables
     test_room_inv = [Weapon("dagger","A simple blade, dull and rusted.",5,3),Armor("rags","Gross and worn old rags, provides a tiny amount of protection.",2,1),Item("note","'If you're reading this, you have been chosen. Escape from this place and find me where the sun meets the stars'",0)]
     can_sell = False
+    player.location = test_room
     exits = {"north": test_room2}
 
     # introduction
@@ -21,6 +22,7 @@ def test_room2(player):
     # intialize room inventory and variables
     test_room2_inv = [Weapon("dagger","A simple blade, dull and rusted.",5,3),Armor("old rags","Gross and worn old rags, provides a tiny amount of protection.",2,1)]
     can_sell = False
+    player.location = test_room2
     exits = {"south": test_room}
 
     # introduction

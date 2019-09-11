@@ -1,6 +1,7 @@
 import sys
 import os
 from random import choice
+import pickle
 from classes import *
 
 def clear_screen():
@@ -94,6 +95,22 @@ def loot_item(player,item,room_inv):
     player.list_inventory()
 
 
+def save_game(player):
+    filename = 'data'
+    outfile = open(filename,'wb')
+
+    pickle.dump(player,outfile)
+    outfile.close()
+
+
+def load_game():
+    infile = open('./data','rb')
+    player = pickle.load(infile)
+    infile.close 
+
+    return player
+
+
 def get_action(player,room_inv,can_sell,exits):
     # -----INPUT-----
     action = input("> ").lower()
@@ -157,10 +174,11 @@ def get_action(player,room_inv,can_sell,exits):
 
     elif action == "stow":
         player.unequip_weapon()
-    # ------------------------
+    # -----xp-----
     elif action == "gainxp":
         print("You gained 100 xp")
         player.gain_xp(100)
+        # -----help menu-----
     elif action == "help":
         print("""
         Status: Check on yourself
@@ -172,9 +190,14 @@ def get_action(player,room_inv,can_sell,exits):
         Stow: Unequip your weapon and store it in your inventory
         Drop: Remove and item from your inventory
         Sell: Sell items if there is a vendor in the room
+        Save: Saves the game
         """)
-
+    # -----save game-----
+    elif action == "save" or action == "save game":
+        save_game(player)
     else:
         pass
 
     return action
+
+

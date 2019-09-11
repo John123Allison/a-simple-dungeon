@@ -17,7 +17,7 @@ class Player():
         self.weapon = 0
         self.is_alive = True # set to false to trigger restart and/or death sequence
         self.gold = 0
-        self.room = 0
+        self.location = None
 
         self.job = "Adventurer"
         self.level = 1
