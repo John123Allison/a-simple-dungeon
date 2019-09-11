@@ -136,6 +136,10 @@ def get_action(player,room_inv,can_sell,exits):
         list_room_inv(room_inv)
         pick_up = input("What do you want to pick up?\n> ")
         loot_item(player,pick_up,room_inv)
+    elif "inspect" in action:
+        player.list_inventory()
+        inspect = input("Inspect which item?\n> ")
+        player.inspect_item(inspect)
     # ------sell items---------
     elif action == "sell":
         player.list_inventory()
@@ -161,12 +165,13 @@ def get_action(player,room_inv,can_sell,exits):
         print("""
         Status: Check on yourself
         Look: Find nearby points of interest
-        North/South/East/West: Move to a new location
         Take: Brings up a list of lootable items
-        Sell: Sell items if there is a vendor in the room
+        Inspect: Inspect an item in your inventory
+        North/South/East/West: Move to a new location
         Wield: Equip a weapon from your inventory
         Stow: Unequip your weapon and store it in your inventory
         Drop: Remove and item from your inventory
+        Sell: Sell items if there is a vendor in the room
         """)
 
     else:

@@ -10,16 +10,19 @@ def main():
     player = Player()
 
     # print welcome message
+    #clear_screen()
+    #print("------------------------")
+    #print("Welcome!")
+    #print("------------------------")
+
+    # new game
     clear_screen()
-    print("------------------------")
-    print("Welcome!")
-    print("------------------------")
-
-
+    player.choose_race()
+    clear_screen()
+    player.choose_job()
+    clear_screen()
+    player.update_stats()
     sleep(1)
-    clear_screen()
-
-
     test_room(player)
 
 

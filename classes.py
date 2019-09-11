@@ -19,19 +19,71 @@ class Player():
         self.gold = 0
         self.room = 0
 
-        #Human Fighter
-        self.race = "Human"
-        self.job = "Fighter"
+        self.job = "Adventurer"
         self.level = 1
         self.xp = 0
-        self.constitution = 5
-        self.strength = 7
-        self.dexterity = 6
-        self.intellect = 4
-        self.luck = 5
+        self.constitution = 3
+        self.strength = 3
+        self.dexterity = 3
+        self.intellect = 3
+        self.luck = 3
+
+
+    def choose_race(self):
+        r = input("Of what race were you born?\n1. Human\n2. Elf\n3. Dwarf\n> ").lower()
+        if "human" in r or "1" in r:
+            self.race = "Human"
+            self.constitution += 3
+            self.strength += 1
+            self.dexterity += 1
+            self.intellect += 1
+            self.luck += 2
+        elif "elf" in r or "2" in r:
+            self.race = "Elf"
+            self.constitution += 1
+            self.strength += 1
+            self.dexterity += 3
+            self.intellect += 2
+            self.luck += 1
+        elif "dwarf" in r or "3" in r:
+            self.race = "Dwarf"
+            self.constitution += 3
+            self.strength += 3
+            self.dexterity += 0
+            self.intellect += 1
+            self.luck += 0
+
+    def choose_job(self):
+        r = input("What job did you have?\n1. Warrior\n2. Hunter\n3. Thief\n4. Noble\n5. Alchemist\n> ").lower()
+        if "warrior" in r or "1" in r:
+            self.job = "Warrior"
+            self.constitution += 2
+            self.strength += 2
+            self.dexterity += 2
+        elif "hunter" in r or "2" in r:
+            self.job = "Hunter"
+            self.constitution += 1
+            self.strength += 1
+            self.dexterity += 3
+            self.intellect += 1
+        elif "thief" in r or "3" in r:
+            self.job = "Thief"
+            self.dexterity += 3
+            self.intellect += 2
+            self.luck += 3
+        elif "noble" in r or "4" in r:
+            self.job = "Noble"
+            self.dexterity += 1
+            self.intellect += 3
+            self.luck += 1
+        elif "alchemist" in r or "5" in r:
+            self.job = "Alchemist"
+            self.constitution += 2
+            self.strength += 2
+            self.intellect += 2
 
     def xp_need(self):
-            return(30+(self.level*25+self.level*10))
+        return(30+(self.level*25+self.level*10))
 
     def check_status(self):
         #Character
@@ -88,11 +140,11 @@ class Player():
             self.weapon = 0
 
     def equip_weapon(self,item):
-        if self.weapon != 0:
-            self.unequip_weapon()
         equipped_something = False
         for x in self.inventory:
             if x.name.lower() == item:
+                if self.weapon != 0:
+                    self.unequip_weapon()
                 self.weapon = x
                 self.inventory.remove(x)
                 print(self.weapon.name + " is now equipped")
@@ -131,21 +183,27 @@ class Player():
                     print("Luck increases by 1")
 
             # Update resources to reflect new stats
-            self.max_health = self.constitution*20
-            self.health = self.max_health
-            self.max_mana = self.intellect*5
-            self.mana = self.max_mana
+            update_stats()
+
+    def update_stats(self):
+        self.max_health = self.constitution*20
+        self.health = self.max_health
+        self.max_mana = self.intellect*5
+        self.mana = self.max_mana
 
     def learn_spell(self,spell):
         self.spells.append(spell)
 
     def list_inventory(self):
         if not self.inventory:
-            print("Inventory is empty")
+            print("--------------Inventory---------------")
+            print("empty")
+            print("--------------------------------------")
         else:
-            print("Inventory: ")
+            print("--------------Inventory---------------")
             for x in self.inventory:
                 print(x.name)
+            print("--------------------------------------")
 
     def sell_item(self,item):
         for x in self.inventory:
@@ -154,6 +212,11 @@ class Player():
                 self.gold = self.gold + x.value
             else:
                 print("Error: item doesn't exist")
+
+    def inspect_item(self,item):
+        for x in self.inventory:
+            if x.name == item:
+                print(x)
 
     def die():
         print("You're dead! Game over ):")
