@@ -6,9 +6,6 @@ from time import sleep
 
 # begin main
 def main():
-    # initialize player and inventory
-    player = Player()
-
     # tries to load game, and runs it from the beginning if no file exists
     try:
         player = load_game()
@@ -25,7 +22,10 @@ def main():
         player.update_stats()
         sleep(1)
  
+        # initialize player and inventory, start new game
+        player = Player()
         test_room(player)
+        
 
 
 if __name__ == '__main__':
