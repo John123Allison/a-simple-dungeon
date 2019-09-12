@@ -1,6 +1,7 @@
 import sys
 import os
 from random import choice
+import pickle
 from classes import *
 
 def clear_screen():
@@ -16,7 +17,7 @@ def generate_item():
     name_list = ["gem","candelbra","ruby","stick","mug"] # list of names that can be pulled from
     item_name = choice(name_list) # choose from the name list at random
 
-    # check what item was generated and assign a descripion and random value from a range 
+    # check what item was generated and assign a descripion and random value from a range
     # that fits the item's name
     if item_name == "gem":
         item_description = "a small, shiny gem"
@@ -83,31 +84,79 @@ def list_room_inv(room_inv):
     else:
         print("In the room is: ")
         for x in room_inv:
-            print(x.name)   
+            print(x.name)
 
 
 def loot_item(player,item,room_inv):
     for x in room_inv:
-        if x.name == item:
+        if x.name.lower() == item:
             player.inventory.append(x)
+            room_inv.remove(x)
     player.list_inventory()
 
 
-def get_action(player,room_inv,can_sell):
+def save_game(player):
+    filename = 'data'
+    outfile = open(filename,'wb')
+
+    pickle.dump(player,outfile)
+    outfile.close()
+
+
+def load_game():
+    infile = open('./data','rb')
+    player = pickle.load(infile)
+    infile.close 
+
+    return player
+
+
+def get_action(player,room_inv,can_sell,exits):
     # -----INPUT-----
-    action = input("> ")
+    action = input("> ").lower()
 
     # check current status
-    if action == "status":
+    if action == "status" or action == "char":
         player.check_status()
+    elif "inventory" in action or "bag" in action:
+        player.list_inventory()
     # ------list room contents-----
     elif "look" in action:
         list_room_inv(room_inv)
+    # ------move-----
+    elif "north" in action:
+        if "north" in exits:
+            f = exits["north"]
+            f(player)
+        else:
+            print("You cannot go that way.")
+    elif "south" in action:
+        if "south" in exits:
+            f = exits["south"]
+            f(player)
+        else:
+            print("You cannot go that way.")
+    elif "east" in action:
+        if "east" in exits:
+            f = exits["east"]
+            f(player)
+        else:
+            print("You cannot go that way.")
+    elif "west" in action:
+        if "west" in exits:
+            f = exits["west"]
+            f(player)
+        else:
+            print("You cannot go that way.")
     # -----looting-----
-    elif "pick up" in action:
+    elif "pick up" in action or "take" in action or "loot" in action or "grab" in action:
         list_room_inv(room_inv)
         pick_up = input("What do you want to pick up?\n> ")
         loot_item(player,pick_up,room_inv)
+    elif "inspect" in action:
+        player.list_inventory()
+        inspect = input("Inspect which item?\n> ")
+        player.inspect_item(inspect)
     # ------sell items---------
     elif action == "sell":
         player.list_inventory()
@@ -116,9 +165,39 @@ def get_action(player,room_inv,can_sell):
             player.sell_item(item_to_sell)
         else:
             print("You can't sell right now.")
-    # ------------------------
+    # ------inventory management------
+    elif action == "wield":
+        player.list_inventory()
+        if len(player.inventory) > 0:
+            item_to_equip = input("Equip which weapon?\n> ")
+            player.equip_weapon(item_to_equip)
+
+    elif action == "stow":
+        player.unequip_weapon()
+    # -----xp-----
+    elif action == "gainxp":
+        print("You gained 100 xp")
+        player.gain_xp(100)
+        # -----help menu-----
+    elif action == "help":
+        print("""
+        Status: Check on yourself
+        Look: Find nearby points of interest
+        Take: Brings up a list of lootable items
+        Inspect: Inspect an item in your inventory
+        North/South/East/West: Move to a new location
+        Wield: Equip a weapon from your inventory
+        Stow: Unequip your weapon and store it in your inventory
+        Drop: Remove and item from your inventory
+        Sell: Sell items if there is a vendor in the room
+        Save: Saves the game
+        """)
+    # -----save game-----
+    elif action == "save" or action == "save game":
+        save_game(player)
     else:
         pass
-    
+
     return action
-   
+
+
