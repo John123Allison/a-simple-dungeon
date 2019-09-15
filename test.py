@@ -16,19 +16,8 @@ def main():
         clear_screen()
         player.location()
     except Exception:
-        # new game
-        clear_screen()
-        player.choose_race()
-        clear_screen()
-        player.choose_job()
-        clear_screen()
-        player.update_stats()
-        sleep(1)
- 
-        # start new game
-        test_room(player)
+        new_game(player, test_room)
         
-
 
 if __name__ == '__main__':
     main()

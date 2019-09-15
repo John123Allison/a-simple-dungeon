@@ -87,7 +87,7 @@ def list_room_inv(room_inv):
             print(x.name)
 
 
-def loot_item(player,item,room_inv):
+def loot_item(player, item, room_inv):
     for x in room_inv:
         if x.name.lower() == item:
             player.inventory.append(x)
@@ -111,7 +111,7 @@ def load_game():
     return player
 
 
-def get_action(player,room_inv,can_sell,exits):
+def get_action(player, room_inv, can_sell, exits):
     # -----INPUT-----
     action = input("> ").lower()
 
@@ -201,3 +201,15 @@ def get_action(player,room_inv,can_sell,exits):
     return action
 
 
+def new_game(player, beginning):
+    # new game
+    clear_screen()
+    player.choose_race()
+    clear_screen()
+    player.choose_job()
+    clear_screen()
+    player.update_stats()
+    sleep(1)
+ 
+    # start new game
+    beginning(player)
