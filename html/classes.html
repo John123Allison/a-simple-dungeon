@@ -1,0 +1,1131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.6.3" />
+<title>classes API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase;cursor:pointer}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>classes</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">from time import sleep
+from random import choice
+import sys
+
+
+class Player():
+    &#34;&#34;&#34;Most values of players are stored as variables, with the inventory as a simple list
+    values of the player&#39;s status are changed by methods attached to the class&#34;&#34;&#34;
+    def __init__(self):
+        self.inventory = []
+        self.spells = []
+        self.health = 100 # affected by interactions with weapon objects
+        self.max_health = self.health
+        self.mana = 20
+        self.max_mana = self.mana
+        self.armor = 0 # affected by inventory
+        self.weapon = 0
+        self.is_alive = True # set to false to trigger restart and/or death sequence
+        self.gold = 0
+        self.location = None
+
+        self.job = &#34;Adventurer&#34;
+        self.level = 1
+        self.xp = 0
+        self.constitution = 3
+        self.strength = 3
+        self.dexterity = 3
+        self.intellect = 3
+        self.luck = 3
+
+
+    def choose_race(self):
+        r = input(&#34;Of what race were you born?\n1. Human\n2. Elf\n3. Dwarf\n&gt; &#34;).lower()
+        if &#34;human&#34; in r or &#34;1&#34; in r:
+            self.race = &#34;Human&#34;
+            self.constitution += 3
+            self.strength += 1
+            self.dexterity += 1
+            self.intellect += 1
+            self.luck += 2
+        elif &#34;elf&#34; in r or &#34;2&#34; in r:
+            self.race = &#34;Elf&#34;
+            self.constitution += 1
+            self.strength += 1
+            self.dexterity += 3
+            self.intellect += 2
+            self.luck += 1
+        elif &#34;dwarf&#34; in r or &#34;3&#34; in r:
+            self.race = &#34;Dwarf&#34;
+            self.constitution += 3
+            self.strength += 3
+            self.dexterity += 0
+            self.intellect += 1
+            self.luck += 0
+
+    def choose_job(self):
+        r = input(&#34;What job did you have?\n1. Warrior\n2. Hunter\n3. Thief\n4. Noble\n5. Alchemist\n&gt; &#34;).lower()
+        if &#34;warrior&#34; in r or &#34;1&#34; in r:
+            self.job = &#34;Warrior&#34;
+            self.constitution += 2
+            self.strength += 2
+            self.dexterity += 2
+        elif &#34;hunter&#34; in r or &#34;2&#34; in r:
+            self.job = &#34;Hunter&#34;
+            self.constitution += 1
+            self.strength += 1
+            self.dexterity += 3
+            self.intellect += 1
+        elif &#34;thief&#34; in r or &#34;3&#34; in r:
+            self.job = &#34;Thief&#34;
+            self.dexterity += 3
+            self.intellect += 2
+            self.luck += 3
+        elif &#34;noble&#34; in r or &#34;4&#34; in r:
+            self.job = &#34;Noble&#34;
+            self.dexterity += 1
+            self.intellect += 3
+            self.luck += 1
+        elif &#34;alchemist&#34; in r or &#34;5&#34; in r:
+            self.job = &#34;Alchemist&#34;
+            self.constitution += 2
+            self.strength += 2
+            self.intellect += 2
+
+    def xp_need(self):
+        return(30+(self.level*25+self.level*10))
+
+    def check_status(self):
+        #Character
+        print(&#34;--------------------------------------&#34;)
+        print(&#34;Level %s %s %s&#34; % (self.level,self.race,self.job))
+        print(&#34;XP: %s / %s&#34; % (self.xp,self.xp_need()))
+        print(&#34;Health: %s / %s&#34; % (self.health,self.max_health))
+        print(&#34;Mana: %s / %s&#34; % (self.mana,self.max_mana))
+        #Equipment
+        print(&#34;--------------------------------------&#34;)
+        if self.weapon != 0:
+            print(&#34;Weapon: %s&#34; % (self.weapon.name))
+        else:
+            print(&#34;Weapon: Unarmed&#34;)
+        if self.armor != 0:
+            print(&#34;Armor: %s&#34; % (self.armor.name))
+        else:
+            print(&#34;Armor: Unclothed&#34;)
+        print(&#34;Gold: %s&#34; % (self.gold))
+        #Stats
+        print(&#34;--------------------------------------&#34;)
+        print(&#34;CON: %s&#34; % (self.constitution))
+        print(&#34;STR: %s&#34; % (self.strength))
+        print(&#34;DEX: %s&#34; % (self.dexterity))
+        print(&#34;INT: %s&#34; % (self.intellect))
+        print(&#34;LUK: %s&#34; % (self.luck))
+        print(&#34;--------------------------------------&#34;)
+
+    def status(self):
+        if self.health &lt;= 0:
+            self.is_alive = False
+        else:
+            pass
+
+        if self.is_alive == False:
+            self.die()
+
+    def change_health(self, value):
+        if self.health &gt; 0:
+            self.health = self.health + value
+        elif self.health &lt;= 0:
+            self.is_alive = False
+        self.check_status
+
+    def add_to_inventory(self, item):
+        &#34;&#34;&#34;
+        Takes arg item.
+        &#34;&#34;&#34;
+        self.inventory.append(item)
+
+    def unequip_weapon(self):
+        if self.weapon == 0:
+            print(&#34;You are not wielding anything&#34;)
+        else:
+            print(self.weapon.name + &#34; was unequipped&#34;)
+            self.inventory.append(self.weapon)
+            self.weapon = 0
+
+    def equip_weapon(self, item):
+        &#34;&#34;&#34;
+        Takes arg item.
+        &#34;&#34;&#34;
+        equipped_something = False
+        for x in self.inventory:
+            if x.name.lower() == item:
+                if self.weapon != 0:
+                    self.unequip_weapon()
+                self.weapon = x
+                self.inventory.remove(x)
+                print(self.weapon.name + &#34; is now equipped&#34;)
+                equipped_something = True
+                break
+        if equipped_something == False:
+            print(&#34;That&#39;s not a weapon&#34;)
+
+    def gain_xp(self, amount):
+        &#34;&#34;&#34;
+        Takes arg amount.
+        &#34;&#34;&#34;
+        self.xp += amount
+        xpneed = self.xp_need()
+        # check for level up
+        while self.xp &gt;= xpneed:
+            self.xp -= xpneed
+            self.level += 1
+            print(&#34;Level Up!\nYou reached level %s&#34; % (self.level))
+            i = 0
+            # increase random stats
+            while i &lt; choice(range(2,4)):
+                i += 1
+                a = choice(range(1,5))
+                if (a == 1):
+                    self.constitution += 1
+                    print(&#34;Constitution increases by 1&#34;)
+                elif (a == 2):
+                    self.strength += 1
+                    print(&#34;Strength increases by 1&#34;)
+                elif (a == 3):
+                    self.dexterity += 1
+                    print(&#34;Dexterity increases by 1&#34;)
+                elif (a == 4):
+                    self.intellect += 1
+                    print(&#34;Intellect increases by 1&#34;)
+                elif (a == 5):
+                    self.luck += 1
+                    print(&#34;Luck increases by 1&#34;)
+
+            # Update resources to reflect new stats
+            update_stats()
+
+    def update_stats(self):
+        self.max_health = self.constitution*20
+        self.health = self.max_health
+        self.max_mana = self.intellect*5
+        self.mana = self.max_mana
+
+    def learn_spell(self, spell):
+        &#34;&#34;&#34;
+        Takes arg spell.
+        &#34;&#34;&#34;
+        self.spells.append(spell)
+
+    def list_inventory(self):
+        if not self.inventory:
+            print(&#34;--------------Inventory---------------&#34;)
+            print(&#34;empty&#34;)
+            print(&#34;--------------------------------------&#34;)
+        else:
+            print(&#34;--------------Inventory---------------&#34;)
+            for x in self.inventory:
+                print(x.name)
+            print(&#34;--------------------------------------&#34;)
+
+    def sell_item(self, item):
+        &#34;&#34;&#34;
+        Takes arg item.
+        &#34;&#34;&#34;
+        for x in self.inventory:
+            if x.name == item:
+                self.inventory.remove(x)
+                self.gold = self.gold + x.value
+            else:
+                print(&#34;Error: item doesn&#39;t exist&#34;)
+
+    def inspect_item(self, item):
+        for x in self.inventory:
+            if x.name == item:
+                print(x)
+
+    def die():
+        print(&#34;You&#39;re dead! Game over ):&#34;)
+        sleep(5)
+        sys.exit(0)
+
+
+class Enemy():
+    &#34;&#34;&#34;Enemies inherit most attributes from the player indirectly
+    They work very similarly, but are completely independent.
+    Initialized with name, health, armor.&#34;&#34;&#34;
+    def __init__(self, name, health, armor):
+        self.name = name
+        self.health = health
+        self.armor = armor
+        self.is_alive = True
+
+    def check_status(self):
+        if self.health &lt;= 0:
+            self.is_alive = False
+        else:
+            pass
+
+        if self.is_alive == False:
+            self.die()
+
+    def change_health(self, value):
+        if self.health &gt; 0:
+            self.health = self.health - value
+        elif self.health &lt;= 0:
+            self.is_alive = False
+        self.check_status
+
+
+class Item():
+    &#34;&#34;&#34;Attributes name, description, and value. Method description returns a formatted string displaying the item information. 
+    Initialized with name, description, value.&#34;&#34;&#34;
+    def __init__(self, name, description, value):
+        self.name = name
+        self.description = description
+        self.value = value
+    def __str__(self):
+        return &#34;{}\n=====\n{}\nValue: {}\n&#34;.format(self.name, self.description, self.value)
+    def __eq__(self,other):
+        return self.name == other
+    def description(self):
+        return &#34;%s: %s. Damage: %s. Worth %s gold&#34; % (self.name, self.description, self.damage, self.value)
+
+
+
+class Weapon(Item):
+    &#34;&#34;&#34;Weapons inherit from items, but have another damage var.&#34;&#34;&#34;
+    def __init__(self, name, description, value, damage):
+        self.damage = damage
+        super().__init__(name, description, value)
+
+
+class Armor(Item):
+    &#34;&#34;&#34;Armor inherits from items, but also has an armor var.&#34;&#34;&#34;
+    def __init__(self, name, description, value, armor):
+        self.armor = armor
+        super().__init__(name, description, value)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="classes.Armor"><code class="flex name class">
+<span>class <span class="ident">Armor</span></span>
+<span>(</span><span>name, description, value, armor)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Armor inherits from items, but also has an armor var.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">class Armor(Item):
+    &#34;&#34;&#34;Armor inherits from items, but also has an armor var.&#34;&#34;&#34;
+    def __init__(self, name, description, value, armor):
+        self.armor = armor
+        super().__init__(name, description, value)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classes.Item" href="#classes.Item">Item</a></li>
+</ul>
+</dd>
+<dt id="classes.Enemy"><code class="flex name class">
+<span>class <span class="ident">Enemy</span></span>
+<span>(</span><span>name, health, armor)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Enemies inherit most attributes from the player indirectly
+They work very similarly, but are completely independent.
+Initialized with name, health, armor.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">class Enemy():
+    &#34;&#34;&#34;Enemies inherit most attributes from the player indirectly
+    They work very similarly, but are completely independent.
+    Initialized with name, health, armor.&#34;&#34;&#34;
+    def __init__(self, name, health, armor):
+        self.name = name
+        self.health = health
+        self.armor = armor
+        self.is_alive = True
+
+    def check_status(self):
+        if self.health &lt;= 0:
+            self.is_alive = False
+        else:
+            pass
+
+        if self.is_alive == False:
+            self.die()
+
+    def change_health(self, value):
+        if self.health &gt; 0:
+            self.health = self.health - value
+        elif self.health &lt;= 0:
+            self.is_alive = False
+        self.check_status</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="classes.Enemy.change_health"><code class="name flex">
+<span>def <span class="ident">change_health</span></span>(<span>self, value)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def change_health(self, value):
+    if self.health &gt; 0:
+        self.health = self.health - value
+    elif self.health &lt;= 0:
+        self.is_alive = False
+    self.check_status</code></pre>
+</details>
+</dd>
+<dt id="classes.Enemy.check_status"><code class="name flex">
+<span>def <span class="ident">check_status</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def check_status(self):
+    if self.health &lt;= 0:
+        self.is_alive = False
+    else:
+        pass
+
+    if self.is_alive == False:
+        self.die()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classes.Item"><code class="flex name class">
+<span>class <span class="ident">Item</span></span>
+<span>(</span><span>name, description, value)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Attributes name, description, and value. Method description returns a formatted string displaying the item information.
+Initialized with name, description, value.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">class Item():
+    &#34;&#34;&#34;Attributes name, description, and value. Method description returns a formatted string displaying the item information. 
+    Initialized with name, description, value.&#34;&#34;&#34;
+    def __init__(self, name, description, value):
+        self.name = name
+        self.description = description
+        self.value = value
+    def __str__(self):
+        return &#34;{}\n=====\n{}\nValue: {}\n&#34;.format(self.name, self.description, self.value)
+    def __eq__(self,other):
+        return self.name == other
+    def description(self):
+        return &#34;%s: %s. Damage: %s. Worth %s gold&#34; % (self.name, self.description, self.damage, self.value)</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="classes.Weapon" href="#classes.Weapon">Weapon</a></li>
+<li><a title="classes.Armor" href="#classes.Armor">Armor</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="classes.Item.description"><code class="name flex">
+<span>def <span class="ident">description</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def description(self):
+    return &#34;%s: %s. Damage: %s. Worth %s gold&#34; % (self.name, self.description, self.damage, self.value)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classes.Player"><code class="flex name class">
+<span>class <span class="ident">Player</span></span>
+</code></dt>
+<dd>
+<section class="desc"><p>Most values of players are stored as variables, with the inventory as a simple list
+values of the player's status are changed by methods attached to the class</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">class Player():
+    &#34;&#34;&#34;Most values of players are stored as variables, with the inventory as a simple list
+    values of the player&#39;s status are changed by methods attached to the class&#34;&#34;&#34;
+    def __init__(self):
+        self.inventory = []
+        self.spells = []
+        self.health = 100 # affected by interactions with weapon objects
+        self.max_health = self.health
+        self.mana = 20
+        self.max_mana = self.mana
+        self.armor = 0 # affected by inventory
+        self.weapon = 0
+        self.is_alive = True # set to false to trigger restart and/or death sequence
+        self.gold = 0
+        self.location = None
+
+        self.job = &#34;Adventurer&#34;
+        self.level = 1
+        self.xp = 0
+        self.constitution = 3
+        self.strength = 3
+        self.dexterity = 3
+        self.intellect = 3
+        self.luck = 3
+
+
+    def choose_race(self):
+        r = input(&#34;Of what race were you born?\n1. Human\n2. Elf\n3. Dwarf\n&gt; &#34;).lower()
+        if &#34;human&#34; in r or &#34;1&#34; in r:
+            self.race = &#34;Human&#34;
+            self.constitution += 3
+            self.strength += 1
+            self.dexterity += 1
+            self.intellect += 1
+            self.luck += 2
+        elif &#34;elf&#34; in r or &#34;2&#34; in r:
+            self.race = &#34;Elf&#34;
+            self.constitution += 1
+            self.strength += 1
+            self.dexterity += 3
+            self.intellect += 2
+            self.luck += 1
+        elif &#34;dwarf&#34; in r or &#34;3&#34; in r:
+            self.race = &#34;Dwarf&#34;
+            self.constitution += 3
+            self.strength += 3
+            self.dexterity += 0
+            self.intellect += 1
+            self.luck += 0
+
+    def choose_job(self):
+        r = input(&#34;What job did you have?\n1. Warrior\n2. Hunter\n3. Thief\n4. Noble\n5. Alchemist\n&gt; &#34;).lower()
+        if &#34;warrior&#34; in r or &#34;1&#34; in r:
+            self.job = &#34;Warrior&#34;
+            self.constitution += 2
+            self.strength += 2
+            self.dexterity += 2
+        elif &#34;hunter&#34; in r or &#34;2&#34; in r:
+            self.job = &#34;Hunter&#34;
+            self.constitution += 1
+            self.strength += 1
+            self.dexterity += 3
+            self.intellect += 1
+        elif &#34;thief&#34; in r or &#34;3&#34; in r:
+            self.job = &#34;Thief&#34;
+            self.dexterity += 3
+            self.intellect += 2
+            self.luck += 3
+        elif &#34;noble&#34; in r or &#34;4&#34; in r:
+            self.job = &#34;Noble&#34;
+            self.dexterity += 1
+            self.intellect += 3
+            self.luck += 1
+        elif &#34;alchemist&#34; in r or &#34;5&#34; in r:
+            self.job = &#34;Alchemist&#34;
+            self.constitution += 2
+            self.strength += 2
+            self.intellect += 2
+
+    def xp_need(self):
+        return(30+(self.level*25+self.level*10))
+
+    def check_status(self):
+        #Character
+        print(&#34;--------------------------------------&#34;)
+        print(&#34;Level %s %s %s&#34; % (self.level,self.race,self.job))
+        print(&#34;XP: %s / %s&#34; % (self.xp,self.xp_need()))
+        print(&#34;Health: %s / %s&#34; % (self.health,self.max_health))
+        print(&#34;Mana: %s / %s&#34; % (self.mana,self.max_mana))
+        #Equipment
+        print(&#34;--------------------------------------&#34;)
+        if self.weapon != 0:
+            print(&#34;Weapon: %s&#34; % (self.weapon.name))
+        else:
+            print(&#34;Weapon: Unarmed&#34;)
+        if self.armor != 0:
+            print(&#34;Armor: %s&#34; % (self.armor.name))
+        else:
+            print(&#34;Armor: Unclothed&#34;)
+        print(&#34;Gold: %s&#34; % (self.gold))
+        #Stats
+        print(&#34;--------------------------------------&#34;)
+        print(&#34;CON: %s&#34; % (self.constitution))
+        print(&#34;STR: %s&#34; % (self.strength))
+        print(&#34;DEX: %s&#34; % (self.dexterity))
+        print(&#34;INT: %s&#34; % (self.intellect))
+        print(&#34;LUK: %s&#34; % (self.luck))
+        print(&#34;--------------------------------------&#34;)
+
+    def status(self):
+        if self.health &lt;= 0:
+            self.is_alive = False
+        else:
+            pass
+
+        if self.is_alive == False:
+            self.die()
+
+    def change_health(self, value):
+        if self.health &gt; 0:
+            self.health = self.health + value
+        elif self.health &lt;= 0:
+            self.is_alive = False
+        self.check_status
+
+    def add_to_inventory(self, item):
+        &#34;&#34;&#34;
+        Takes arg item.
+        &#34;&#34;&#34;
+        self.inventory.append(item)
+
+    def unequip_weapon(self):
+        if self.weapon == 0:
+            print(&#34;You are not wielding anything&#34;)
+        else:
+            print(self.weapon.name + &#34; was unequipped&#34;)
+            self.inventory.append(self.weapon)
+            self.weapon = 0
+
+    def equip_weapon(self, item):
+        &#34;&#34;&#34;
+        Takes arg item.
+        &#34;&#34;&#34;
+        equipped_something = False
+        for x in self.inventory:
+            if x.name.lower() == item:
+                if self.weapon != 0:
+                    self.unequip_weapon()
+                self.weapon = x
+                self.inventory.remove(x)
+                print(self.weapon.name + &#34; is now equipped&#34;)
+                equipped_something = True
+                break
+        if equipped_something == False:
+            print(&#34;That&#39;s not a weapon&#34;)
+
+    def gain_xp(self, amount):
+        &#34;&#34;&#34;
+        Takes arg amount.
+        &#34;&#34;&#34;
+        self.xp += amount
+        xpneed = self.xp_need()
+        # check for level up
+        while self.xp &gt;= xpneed:
+            self.xp -= xpneed
+            self.level += 1
+            print(&#34;Level Up!\nYou reached level %s&#34; % (self.level))
+            i = 0
+            # increase random stats
+            while i &lt; choice(range(2,4)):
+                i += 1
+                a = choice(range(1,5))
+                if (a == 1):
+                    self.constitution += 1
+                    print(&#34;Constitution increases by 1&#34;)
+                elif (a == 2):
+                    self.strength += 1
+                    print(&#34;Strength increases by 1&#34;)
+                elif (a == 3):
+                    self.dexterity += 1
+                    print(&#34;Dexterity increases by 1&#34;)
+                elif (a == 4):
+                    self.intellect += 1
+                    print(&#34;Intellect increases by 1&#34;)
+                elif (a == 5):
+                    self.luck += 1
+                    print(&#34;Luck increases by 1&#34;)
+
+            # Update resources to reflect new stats
+            update_stats()
+
+    def update_stats(self):
+        self.max_health = self.constitution*20
+        self.health = self.max_health
+        self.max_mana = self.intellect*5
+        self.mana = self.max_mana
+
+    def learn_spell(self, spell):
+        &#34;&#34;&#34;
+        Takes arg spell.
+        &#34;&#34;&#34;
+        self.spells.append(spell)
+
+    def list_inventory(self):
+        if not self.inventory:
+            print(&#34;--------------Inventory---------------&#34;)
+            print(&#34;empty&#34;)
+            print(&#34;--------------------------------------&#34;)
+        else:
+            print(&#34;--------------Inventory---------------&#34;)
+            for x in self.inventory:
+                print(x.name)
+            print(&#34;--------------------------------------&#34;)
+
+    def sell_item(self, item):
+        &#34;&#34;&#34;
+        Takes arg item.
+        &#34;&#34;&#34;
+        for x in self.inventory:
+            if x.name == item:
+                self.inventory.remove(x)
+                self.gold = self.gold + x.value
+            else:
+                print(&#34;Error: item doesn&#39;t exist&#34;)
+
+    def inspect_item(self, item):
+        for x in self.inventory:
+            if x.name == item:
+                print(x)
+
+    def die():
+        print(&#34;You&#39;re dead! Game over ):&#34;)
+        sleep(5)
+        sys.exit(0)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="classes.Player.add_to_inventory"><code class="name flex">
+<span>def <span class="ident">add_to_inventory</span></span>(<span>self, item)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Takes arg item.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def add_to_inventory(self, item):
+    &#34;&#34;&#34;
+    Takes arg item.
+    &#34;&#34;&#34;
+    self.inventory.append(item)</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.change_health"><code class="name flex">
+<span>def <span class="ident">change_health</span></span>(<span>self, value)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def change_health(self, value):
+    if self.health &gt; 0:
+        self.health = self.health + value
+    elif self.health &lt;= 0:
+        self.is_alive = False
+    self.check_status</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.check_status"><code class="name flex">
+<span>def <span class="ident">check_status</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def check_status(self):
+    #Character
+    print(&#34;--------------------------------------&#34;)
+    print(&#34;Level %s %s %s&#34; % (self.level,self.race,self.job))
+    print(&#34;XP: %s / %s&#34; % (self.xp,self.xp_need()))
+    print(&#34;Health: %s / %s&#34; % (self.health,self.max_health))
+    print(&#34;Mana: %s / %s&#34; % (self.mana,self.max_mana))
+    #Equipment
+    print(&#34;--------------------------------------&#34;)
+    if self.weapon != 0:
+        print(&#34;Weapon: %s&#34; % (self.weapon.name))
+    else:
+        print(&#34;Weapon: Unarmed&#34;)
+    if self.armor != 0:
+        print(&#34;Armor: %s&#34; % (self.armor.name))
+    else:
+        print(&#34;Armor: Unclothed&#34;)
+    print(&#34;Gold: %s&#34; % (self.gold))
+    #Stats
+    print(&#34;--------------------------------------&#34;)
+    print(&#34;CON: %s&#34; % (self.constitution))
+    print(&#34;STR: %s&#34; % (self.strength))
+    print(&#34;DEX: %s&#34; % (self.dexterity))
+    print(&#34;INT: %s&#34; % (self.intellect))
+    print(&#34;LUK: %s&#34; % (self.luck))
+    print(&#34;--------------------------------------&#34;)</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.choose_job"><code class="name flex">
+<span>def <span class="ident">choose_job</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def choose_job(self):
+    r = input(&#34;What job did you have?\n1. Warrior\n2. Hunter\n3. Thief\n4. Noble\n5. Alchemist\n&gt; &#34;).lower()
+    if &#34;warrior&#34; in r or &#34;1&#34; in r:
+        self.job = &#34;Warrior&#34;
+        self.constitution += 2
+        self.strength += 2
+        self.dexterity += 2
+    elif &#34;hunter&#34; in r or &#34;2&#34; in r:
+        self.job = &#34;Hunter&#34;
+        self.constitution += 1
+        self.strength += 1
+        self.dexterity += 3
+        self.intellect += 1
+    elif &#34;thief&#34; in r or &#34;3&#34; in r:
+        self.job = &#34;Thief&#34;
+        self.dexterity += 3
+        self.intellect += 2
+        self.luck += 3
+    elif &#34;noble&#34; in r or &#34;4&#34; in r:
+        self.job = &#34;Noble&#34;
+        self.dexterity += 1
+        self.intellect += 3
+        self.luck += 1
+    elif &#34;alchemist&#34; in r or &#34;5&#34; in r:
+        self.job = &#34;Alchemist&#34;
+        self.constitution += 2
+        self.strength += 2
+        self.intellect += 2</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.choose_race"><code class="name flex">
+<span>def <span class="ident">choose_race</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def choose_race(self):
+    r = input(&#34;Of what race were you born?\n1. Human\n2. Elf\n3. Dwarf\n&gt; &#34;).lower()
+    if &#34;human&#34; in r or &#34;1&#34; in r:
+        self.race = &#34;Human&#34;
+        self.constitution += 3
+        self.strength += 1
+        self.dexterity += 1
+        self.intellect += 1
+        self.luck += 2
+    elif &#34;elf&#34; in r or &#34;2&#34; in r:
+        self.race = &#34;Elf&#34;
+        self.constitution += 1
+        self.strength += 1
+        self.dexterity += 3
+        self.intellect += 2
+        self.luck += 1
+    elif &#34;dwarf&#34; in r or &#34;3&#34; in r:
+        self.race = &#34;Dwarf&#34;
+        self.constitution += 3
+        self.strength += 3
+        self.dexterity += 0
+        self.intellect += 1
+        self.luck += 0</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.die"><code class="name flex">
+<span>def <span class="ident">die</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def die():
+    print(&#34;You&#39;re dead! Game over ):&#34;)
+    sleep(5)
+    sys.exit(0)</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.equip_weapon"><code class="name flex">
+<span>def <span class="ident">equip_weapon</span></span>(<span>self, item)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Takes arg item.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def equip_weapon(self, item):
+    &#34;&#34;&#34;
+    Takes arg item.
+    &#34;&#34;&#34;
+    equipped_something = False
+    for x in self.inventory:
+        if x.name.lower() == item:
+            if self.weapon != 0:
+                self.unequip_weapon()
+            self.weapon = x
+            self.inventory.remove(x)
+            print(self.weapon.name + &#34; is now equipped&#34;)
+            equipped_something = True
+            break
+    if equipped_something == False:
+        print(&#34;That&#39;s not a weapon&#34;)</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.gain_xp"><code class="name flex">
+<span>def <span class="ident">gain_xp</span></span>(<span>self, amount)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Takes arg amount.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def gain_xp(self, amount):
+    &#34;&#34;&#34;
+    Takes arg amount.
+    &#34;&#34;&#34;
+    self.xp += amount
+    xpneed = self.xp_need()
+    # check for level up
+    while self.xp &gt;= xpneed:
+        self.xp -= xpneed
+        self.level += 1
+        print(&#34;Level Up!\nYou reached level %s&#34; % (self.level))
+        i = 0
+        # increase random stats
+        while i &lt; choice(range(2,4)):
+            i += 1
+            a = choice(range(1,5))
+            if (a == 1):
+                self.constitution += 1
+                print(&#34;Constitution increases by 1&#34;)
+            elif (a == 2):
+                self.strength += 1
+                print(&#34;Strength increases by 1&#34;)
+            elif (a == 3):
+                self.dexterity += 1
+                print(&#34;Dexterity increases by 1&#34;)
+            elif (a == 4):
+                self.intellect += 1
+                print(&#34;Intellect increases by 1&#34;)
+            elif (a == 5):
+                self.luck += 1
+                print(&#34;Luck increases by 1&#34;)
+
+        # Update resources to reflect new stats
+        update_stats()</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.inspect_item"><code class="name flex">
+<span>def <span class="ident">inspect_item</span></span>(<span>self, item)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def inspect_item(self, item):
+    for x in self.inventory:
+        if x.name == item:
+            print(x)</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.learn_spell"><code class="name flex">
+<span>def <span class="ident">learn_spell</span></span>(<span>self, spell)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Takes arg spell.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def learn_spell(self, spell):
+    &#34;&#34;&#34;
+    Takes arg spell.
+    &#34;&#34;&#34;
+    self.spells.append(spell)</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.list_inventory"><code class="name flex">
+<span>def <span class="ident">list_inventory</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def list_inventory(self):
+    if not self.inventory:
+        print(&#34;--------------Inventory---------------&#34;)
+        print(&#34;empty&#34;)
+        print(&#34;--------------------------------------&#34;)
+    else:
+        print(&#34;--------------Inventory---------------&#34;)
+        for x in self.inventory:
+            print(x.name)
+        print(&#34;--------------------------------------&#34;)</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.sell_item"><code class="name flex">
+<span>def <span class="ident">sell_item</span></span>(<span>self, item)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Takes arg item.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def sell_item(self, item):
+    &#34;&#34;&#34;
+    Takes arg item.
+    &#34;&#34;&#34;
+    for x in self.inventory:
+        if x.name == item:
+            self.inventory.remove(x)
+            self.gold = self.gold + x.value
+        else:
+            print(&#34;Error: item doesn&#39;t exist&#34;)</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.status"><code class="name flex">
+<span>def <span class="ident">status</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def status(self):
+    if self.health &lt;= 0:
+        self.is_alive = False
+    else:
+        pass
+
+    if self.is_alive == False:
+        self.die()</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.unequip_weapon"><code class="name flex">
+<span>def <span class="ident">unequip_weapon</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def unequip_weapon(self):
+    if self.weapon == 0:
+        print(&#34;You are not wielding anything&#34;)
+    else:
+        print(self.weapon.name + &#34; was unequipped&#34;)
+        self.inventory.append(self.weapon)
+        self.weapon = 0</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.update_stats"><code class="name flex">
+<span>def <span class="ident">update_stats</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def update_stats(self):
+    self.max_health = self.constitution*20
+    self.health = self.max_health
+    self.max_mana = self.intellect*5
+    self.mana = self.max_mana</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.xp_need"><code class="name flex">
+<span>def <span class="ident">xp_need</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def xp_need(self):
+    return(30+(self.level*25+self.level*10))</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classes.Weapon"><code class="flex name class">
+<span>class <span class="ident">Weapon</span></span>
+<span>(</span><span>name, description, value, damage)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Weapons inherit from items, but have another damage var.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">class Weapon(Item):
+    &#34;&#34;&#34;Weapons inherit from items, but have another damage var.&#34;&#34;&#34;
+    def __init__(self, name, description, value, damage):
+        self.damage = damage
+        super().__init__(name, description, value)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classes.Item" href="#classes.Item">Item</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="classes.Armor" href="#classes.Armor">Armor</a></code></h4>
+</li>
+<li>
+<h4><code><a title="classes.Enemy" href="#classes.Enemy">Enemy</a></code></h4>
+<ul class="">
+<li><code><a title="classes.Enemy.change_health" href="#classes.Enemy.change_health">change_health</a></code></li>
+<li><code><a title="classes.Enemy.check_status" href="#classes.Enemy.check_status">check_status</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classes.Item" href="#classes.Item">Item</a></code></h4>
+<ul class="">
+<li><code><a title="classes.Item.description" href="#classes.Item.description">description</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classes.Player" href="#classes.Player">Player</a></code></h4>
+<ul class="two-column">
+<li><code><a title="classes.Player.add_to_inventory" href="#classes.Player.add_to_inventory">add_to_inventory</a></code></li>
+<li><code><a title="classes.Player.change_health" href="#classes.Player.change_health">change_health</a></code></li>
+<li><code><a title="classes.Player.check_status" href="#classes.Player.check_status">check_status</a></code></li>
+<li><code><a title="classes.Player.choose_job" href="#classes.Player.choose_job">choose_job</a></code></li>
+<li><code><a title="classes.Player.choose_race" href="#classes.Player.choose_race">choose_race</a></code></li>
+<li><code><a title="classes.Player.die" href="#classes.Player.die">die</a></code></li>
+<li><code><a title="classes.Player.equip_weapon" href="#classes.Player.equip_weapon">equip_weapon</a></code></li>
+<li><code><a title="classes.Player.gain_xp" href="#classes.Player.gain_xp">gain_xp</a></code></li>
+<li><code><a title="classes.Player.inspect_item" href="#classes.Player.inspect_item">inspect_item</a></code></li>
+<li><code><a title="classes.Player.learn_spell" href="#classes.Player.learn_spell">learn_spell</a></code></li>
+<li><code><a title="classes.Player.list_inventory" href="#classes.Player.list_inventory">list_inventory</a></code></li>
+<li><code><a title="classes.Player.sell_item" href="#classes.Player.sell_item">sell_item</a></code></li>
+<li><code><a title="classes.Player.status" href="#classes.Player.status">status</a></code></li>
+<li><code><a title="classes.Player.unequip_weapon" href="#classes.Player.unequip_weapon">unequip_weapon</a></code></li>
+<li><code><a title="classes.Player.update_stats" href="#classes.Player.update_stats">update_stats</a></code></li>
+<li><code><a title="classes.Player.xp_need" href="#classes.Player.xp_need">xp_need</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classes.Weapon" href="#classes.Weapon">Weapon</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.6.3</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

@@ -4,7 +4,7 @@ import sys
 
 
 class Player():
-    """most values of players are stored as variables, with the inventory as a simple list
+    """Most values of players are stored as variables, with the inventory as a simple list
     values of the player's status are changed by methods attached to the class"""
     def __init__(self):
         self.inventory = []
@@ -129,6 +129,9 @@ class Player():
         self.check_status
 
     def add_to_inventory(self, item):
+        """
+        Takes arg item.
+        """
         self.inventory.append(item)
 
     def unequip_weapon(self):
@@ -140,6 +143,9 @@ class Player():
             self.weapon = 0
 
     def equip_weapon(self, item):
+        """
+        Takes arg item.
+        """
         equipped_something = False
         for x in self.inventory:
             if x.name.lower() == item:
@@ -154,6 +160,9 @@ class Player():
             print("That's not a weapon")
 
     def gain_xp(self, amount):
+        """
+        Takes arg amount.
+        """
         self.xp += amount
         xpneed = self.xp_need()
         # check for level up
@@ -192,6 +201,9 @@ class Player():
         self.mana = self.max_mana
 
     def learn_spell(self, spell):
+        """
+        Takes arg spell.
+        """
         self.spells.append(spell)
 
     def list_inventory(self):
@@ -206,6 +218,9 @@ class Player():
             print("--------------------------------------")
 
     def sell_item(self, item):
+        """
+        Takes arg item.
+        """
         for x in self.inventory:
             if x.name == item:
                 self.inventory.remove(x)
@@ -224,10 +239,10 @@ class Player():
         sys.exit(0)
 
 
-
 class Enemy():
     """Enemies inherit most attributes from the player indirectly
-    They work very similarly, but are completely independent"""
+    They work very similarly, but are completely independent.
+    Initialized with name, health, armor."""
     def __init__(self, name, health, armor):
         self.name = name
         self.health = health
@@ -252,6 +267,8 @@ class Enemy():
 
 
 class Item():
+    """Attributes name, description, and value. Method description returns a formatted string displaying the item information. 
+    Initialized with name, description, value."""
     def __init__(self, name, description, value):
         self.name = name
         self.description = description
@@ -266,14 +283,14 @@ class Item():
 
 
 class Weapon(Item):
-    """Weapons inherit from items, but have another damage var"""
+    """Weapons inherit from items, but have another damage var."""
     def __init__(self, name, description, value, damage):
         self.damage = damage
         super().__init__(name, description, value)
 
 
 class Armor(Item):
-    """Armor inherits from items, but also have an armor var"""
+    """Armor inherits from items, but also has an armor var."""
     def __init__(self, name, description, value, armor):
         self.armor = armor
         super().__init__(name, description, value)
