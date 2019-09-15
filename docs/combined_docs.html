@@ -1,0 +1,2024 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.6.3" />
+<title>classes API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase;cursor:pointer}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>classes</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">from time import sleep
+from random import choice
+import sys
+
+
+class Player():
+    &#34;&#34;&#34;Most values of players are stored as variables, with the inventory as a simple list
+    values of the player&#39;s status are changed by methods attached to the class&#34;&#34;&#34;
+    def __init__(self):
+        self.inventory = []
+        self.spells = []
+        self.health = 100 # affected by interactions with weapon objects
+        self.max_health = self.health
+        self.mana = 20
+        self.max_mana = self.mana
+        self.armor = 0 # affected by inventory
+        self.weapon = 0
+        self.is_alive = True # set to false to trigger restart and/or death sequence
+        self.gold = 0
+        self.location = None
+
+        self.job = &#34;Adventurer&#34;
+        self.level = 1
+        self.xp = 0
+        self.constitution = 3
+        self.strength = 3
+        self.dexterity = 3
+        self.intellect = 3
+        self.luck = 3
+
+
+    def choose_race(self):
+        r = input(&#34;Of what race were you born?\n1. Human\n2. Elf\n3. Dwarf\n&gt; &#34;).lower()
+        if &#34;human&#34; in r or &#34;1&#34; in r:
+            self.race = &#34;Human&#34;
+            self.constitution += 3
+            self.strength += 1
+            self.dexterity += 1
+            self.intellect += 1
+            self.luck += 2
+        elif &#34;elf&#34; in r or &#34;2&#34; in r:
+            self.race = &#34;Elf&#34;
+            self.constitution += 1
+            self.strength += 1
+            self.dexterity += 3
+            self.intellect += 2
+            self.luck += 1
+        elif &#34;dwarf&#34; in r or &#34;3&#34; in r:
+            self.race = &#34;Dwarf&#34;
+            self.constitution += 3
+            self.strength += 3
+            self.dexterity += 0
+            self.intellect += 1
+            self.luck += 0
+
+    def choose_job(self):
+        r = input(&#34;What job did you have?\n1. Warrior\n2. Hunter\n3. Thief\n4. Noble\n5. Alchemist\n&gt; &#34;).lower()
+        if &#34;warrior&#34; in r or &#34;1&#34; in r:
+            self.job = &#34;Warrior&#34;
+            self.constitution += 2
+            self.strength += 2
+            self.dexterity += 2
+        elif &#34;hunter&#34; in r or &#34;2&#34; in r:
+            self.job = &#34;Hunter&#34;
+            self.constitution += 1
+            self.strength += 1
+            self.dexterity += 3
+            self.intellect += 1
+        elif &#34;thief&#34; in r or &#34;3&#34; in r:
+            self.job = &#34;Thief&#34;
+            self.dexterity += 3
+            self.intellect += 2
+            self.luck += 3
+        elif &#34;noble&#34; in r or &#34;4&#34; in r:
+            self.job = &#34;Noble&#34;
+            self.dexterity += 1
+            self.intellect += 3
+            self.luck += 1
+        elif &#34;alchemist&#34; in r or &#34;5&#34; in r:
+            self.job = &#34;Alchemist&#34;
+            self.constitution += 2
+            self.strength += 2
+            self.intellect += 2
+
+    def xp_need(self):
+        return(30+(self.level*25+self.level*10))
+
+    def check_status(self):
+        #Character
+        print(&#34;--------------------------------------&#34;)
+        print(&#34;Level %s %s %s&#34; % (self.level,self.race,self.job))
+        print(&#34;XP: %s / %s&#34; % (self.xp,self.xp_need()))
+        print(&#34;Health: %s / %s&#34; % (self.health,self.max_health))
+        print(&#34;Mana: %s / %s&#34; % (self.mana,self.max_mana))
+        #Equipment
+        print(&#34;--------------------------------------&#34;)
+        if self.weapon != 0:
+            print(&#34;Weapon: %s&#34; % (self.weapon.name))
+        else:
+            print(&#34;Weapon: Unarmed&#34;)
+        if self.armor != 0:
+            print(&#34;Armor: %s&#34; % (self.armor.name))
+        else:
+            print(&#34;Armor: Unclothed&#34;)
+        print(&#34;Gold: %s&#34; % (self.gold))
+        #Stats
+        print(&#34;--------------------------------------&#34;)
+        print(&#34;CON: %s&#34; % (self.constitution))
+        print(&#34;STR: %s&#34; % (self.strength))
+        print(&#34;DEX: %s&#34; % (self.dexterity))
+        print(&#34;INT: %s&#34; % (self.intellect))
+        print(&#34;LUK: %s&#34; % (self.luck))
+        print(&#34;--------------------------------------&#34;)
+
+    def status(self):
+        if self.health &lt;= 0:
+            self.is_alive = False
+        else:
+            pass
+
+        if self.is_alive == False:
+            self.die()
+
+    def change_health(self, value):
+        if self.health &gt; 0:
+            self.health = self.health + value
+        elif self.health &lt;= 0:
+            self.is_alive = False
+        self.check_status
+
+    def add_to_inventory(self, item):
+        &#34;&#34;&#34;
+        Takes arg item.
+        &#34;&#34;&#34;
+        self.inventory.append(item)
+
+    def unequip_weapon(self):
+        if self.weapon == 0:
+            print(&#34;You are not wielding anything&#34;)
+        else:
+            print(self.weapon.name + &#34; was unequipped&#34;)
+            self.inventory.append(self.weapon)
+            self.weapon = 0
+
+    def equip_weapon(self, item):
+        &#34;&#34;&#34;
+        Takes arg item.
+        &#34;&#34;&#34;
+        equipped_something = False
+        for x in self.inventory:
+            if x.name.lower() == item:
+                if self.weapon != 0:
+                    self.unequip_weapon()
+                self.weapon = x
+                self.inventory.remove(x)
+                print(self.weapon.name + &#34; is now equipped&#34;)
+                equipped_something = True
+                break
+        if equipped_something == False:
+            print(&#34;That&#39;s not a weapon&#34;)
+
+    def gain_xp(self, amount):
+        &#34;&#34;&#34;
+        Takes arg amount.
+        &#34;&#34;&#34;
+        self.xp += amount
+        xpneed = self.xp_need()
+        # check for level up
+        while self.xp &gt;= xpneed:
+            self.xp -= xpneed
+            self.level += 1
+            print(&#34;Level Up!\nYou reached level %s&#34; % (self.level))
+            i = 0
+            # increase random stats
+            while i &lt; choice(range(2,4)):
+                i += 1
+                a = choice(range(1,5))
+                if (a == 1):
+                    self.constitution += 1
+                    print(&#34;Constitution increases by 1&#34;)
+                elif (a == 2):
+                    self.strength += 1
+                    print(&#34;Strength increases by 1&#34;)
+                elif (a == 3):
+                    self.dexterity += 1
+                    print(&#34;Dexterity increases by 1&#34;)
+                elif (a == 4):
+                    self.intellect += 1
+                    print(&#34;Intellect increases by 1&#34;)
+                elif (a == 5):
+                    self.luck += 1
+                    print(&#34;Luck increases by 1&#34;)
+
+            # Update resources to reflect new stats
+            update_stats()
+
+    def update_stats(self):
+        self.max_health = self.constitution*20
+        self.health = self.max_health
+        self.max_mana = self.intellect*5
+        self.mana = self.max_mana
+
+    def learn_spell(self, spell):
+        &#34;&#34;&#34;
+        Takes arg spell.
+        &#34;&#34;&#34;
+        self.spells.append(spell)
+
+    def list_inventory(self):
+        if not self.inventory:
+            print(&#34;--------------Inventory---------------&#34;)
+            print(&#34;empty&#34;)
+            print(&#34;--------------------------------------&#34;)
+        else:
+            print(&#34;--------------Inventory---------------&#34;)
+            for x in self.inventory:
+                print(x.name)
+            print(&#34;--------------------------------------&#34;)
+
+    def sell_item(self, item):
+        &#34;&#34;&#34;
+        Takes arg item.
+        &#34;&#34;&#34;
+        for x in self.inventory:
+            if x.name == item:
+                self.inventory.remove(x)
+                self.gold = self.gold + x.value
+            else:
+                print(&#34;Error: item doesn&#39;t exist&#34;)
+
+    def inspect_item(self, item):
+        for x in self.inventory:
+            if x.name == item:
+                print(x)
+
+    def die():
+        print(&#34;You&#39;re dead! Game over ):&#34;)
+        sleep(5)
+        sys.exit(0)
+
+
+class Enemy():
+    &#34;&#34;&#34;Enemies inherit most attributes from the player indirectly
+    They work very similarly, but are completely independent.
+    Initialized with name, health, armor.&#34;&#34;&#34;
+    def __init__(self, name, health, armor):
+        self.name = name
+        self.health = health
+        self.armor = armor
+        self.is_alive = True
+
+    def check_status(self):
+        if self.health &lt;= 0:
+            self.is_alive = False
+        else:
+            pass
+
+        if self.is_alive == False:
+            self.die()
+
+    def change_health(self, value):
+        if self.health &gt; 0:
+            self.health = self.health - value
+        elif self.health &lt;= 0:
+            self.is_alive = False
+        self.check_status
+
+
+class Item():
+    &#34;&#34;&#34;Attributes name, description, and value. Method description returns a formatted string displaying the item information. 
+    Initialized with name, description, value.&#34;&#34;&#34;
+    def __init__(self, name, description, value):
+        self.name = name
+        self.description = description
+        self.value = value
+    def __str__(self):
+        return &#34;{}\n=====\n{}\nValue: {}\n&#34;.format(self.name, self.description, self.value)
+    def __eq__(self,other):
+        return self.name == other
+    def description(self):
+        return &#34;%s: %s. Damage: %s. Worth %s gold&#34; % (self.name, self.description, self.damage, self.value)
+
+
+
+class Weapon(Item):
+    &#34;&#34;&#34;Weapons inherit from items, but have another damage var.&#34;&#34;&#34;
+    def __init__(self, name, description, value, damage):
+        self.damage = damage
+        super().__init__(name, description, value)
+
+
+class Armor(Item):
+    &#34;&#34;&#34;Armor inherits from items, but also has an armor var.&#34;&#34;&#34;
+    def __init__(self, name, description, value, armor):
+        self.armor = armor
+        super().__init__(name, description, value)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="classes.Armor"><code class="flex name class">
+<span>class <span class="ident">Armor</span></span>
+<span>(</span><span>name, description, value, armor)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Armor inherits from items, but also has an armor var.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">class Armor(Item):
+    &#34;&#34;&#34;Armor inherits from items, but also has an armor var.&#34;&#34;&#34;
+    def __init__(self, name, description, value, armor):
+        self.armor = armor
+        super().__init__(name, description, value)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classes.Item" href="#classes.Item">Item</a></li>
+</ul>
+</dd>
+<dt id="classes.Enemy"><code class="flex name class">
+<span>class <span class="ident">Enemy</span></span>
+<span>(</span><span>name, health, armor)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Enemies inherit most attributes from the player indirectly
+They work very similarly, but are completely independent.
+Initialized with name, health, armor.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">class Enemy():
+    &#34;&#34;&#34;Enemies inherit most attributes from the player indirectly
+    They work very similarly, but are completely independent.
+    Initialized with name, health, armor.&#34;&#34;&#34;
+    def __init__(self, name, health, armor):
+        self.name = name
+        self.health = health
+        self.armor = armor
+        self.is_alive = True
+
+    def check_status(self):
+        if self.health &lt;= 0:
+            self.is_alive = False
+        else:
+            pass
+
+        if self.is_alive == False:
+            self.die()
+
+    def change_health(self, value):
+        if self.health &gt; 0:
+            self.health = self.health - value
+        elif self.health &lt;= 0:
+            self.is_alive = False
+        self.check_status</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="classes.Enemy.change_health"><code class="name flex">
+<span>def <span class="ident">change_health</span></span>(<span>self, value)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def change_health(self, value):
+    if self.health &gt; 0:
+        self.health = self.health - value
+    elif self.health &lt;= 0:
+        self.is_alive = False
+    self.check_status</code></pre>
+</details>
+</dd>
+<dt id="classes.Enemy.check_status"><code class="name flex">
+<span>def <span class="ident">check_status</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def check_status(self):
+    if self.health &lt;= 0:
+        self.is_alive = False
+    else:
+        pass
+
+    if self.is_alive == False:
+        self.die()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classes.Item"><code class="flex name class">
+<span>class <span class="ident">Item</span></span>
+<span>(</span><span>name, description, value)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Attributes name, description, and value. Method description returns a formatted string displaying the item information.
+Initialized with name, description, value.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">class Item():
+    &#34;&#34;&#34;Attributes name, description, and value. Method description returns a formatted string displaying the item information. 
+    Initialized with name, description, value.&#34;&#34;&#34;
+    def __init__(self, name, description, value):
+        self.name = name
+        self.description = description
+        self.value = value
+    def __str__(self):
+        return &#34;{}\n=====\n{}\nValue: {}\n&#34;.format(self.name, self.description, self.value)
+    def __eq__(self,other):
+        return self.name == other
+    def description(self):
+        return &#34;%s: %s. Damage: %s. Worth %s gold&#34; % (self.name, self.description, self.damage, self.value)</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="classes.Weapon" href="#classes.Weapon">Weapon</a></li>
+<li><a title="classes.Armor" href="#classes.Armor">Armor</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="classes.Item.description"><code class="name flex">
+<span>def <span class="ident">description</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def description(self):
+    return &#34;%s: %s. Damage: %s. Worth %s gold&#34; % (self.name, self.description, self.damage, self.value)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classes.Player"><code class="flex name class">
+<span>class <span class="ident">Player</span></span>
+</code></dt>
+<dd>
+<section class="desc"><p>Most values of players are stored as variables, with the inventory as a simple list
+values of the player's status are changed by methods attached to the class</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">class Player():
+    &#34;&#34;&#34;Most values of players are stored as variables, with the inventory as a simple list
+    values of the player&#39;s status are changed by methods attached to the class&#34;&#34;&#34;
+    def __init__(self):
+        self.inventory = []
+        self.spells = []
+        self.health = 100 # affected by interactions with weapon objects
+        self.max_health = self.health
+        self.mana = 20
+        self.max_mana = self.mana
+        self.armor = 0 # affected by inventory
+        self.weapon = 0
+        self.is_alive = True # set to false to trigger restart and/or death sequence
+        self.gold = 0
+        self.location = None
+
+        self.job = &#34;Adventurer&#34;
+        self.level = 1
+        self.xp = 0
+        self.constitution = 3
+        self.strength = 3
+        self.dexterity = 3
+        self.intellect = 3
+        self.luck = 3
+
+
+    def choose_race(self):
+        r = input(&#34;Of what race were you born?\n1. Human\n2. Elf\n3. Dwarf\n&gt; &#34;).lower()
+        if &#34;human&#34; in r or &#34;1&#34; in r:
+            self.race = &#34;Human&#34;
+            self.constitution += 3
+            self.strength += 1
+            self.dexterity += 1
+            self.intellect += 1
+            self.luck += 2
+        elif &#34;elf&#34; in r or &#34;2&#34; in r:
+            self.race = &#34;Elf&#34;
+            self.constitution += 1
+            self.strength += 1
+            self.dexterity += 3
+            self.intellect += 2
+            self.luck += 1
+        elif &#34;dwarf&#34; in r or &#34;3&#34; in r:
+            self.race = &#34;Dwarf&#34;
+            self.constitution += 3
+            self.strength += 3
+            self.dexterity += 0
+            self.intellect += 1
+            self.luck += 0
+
+    def choose_job(self):
+        r = input(&#34;What job did you have?\n1. Warrior\n2. Hunter\n3. Thief\n4. Noble\n5. Alchemist\n&gt; &#34;).lower()
+        if &#34;warrior&#34; in r or &#34;1&#34; in r:
+            self.job = &#34;Warrior&#34;
+            self.constitution += 2
+            self.strength += 2
+            self.dexterity += 2
+        elif &#34;hunter&#34; in r or &#34;2&#34; in r:
+            self.job = &#34;Hunter&#34;
+            self.constitution += 1
+            self.strength += 1
+            self.dexterity += 3
+            self.intellect += 1
+        elif &#34;thief&#34; in r or &#34;3&#34; in r:
+            self.job = &#34;Thief&#34;
+            self.dexterity += 3
+            self.intellect += 2
+            self.luck += 3
+        elif &#34;noble&#34; in r or &#34;4&#34; in r:
+            self.job = &#34;Noble&#34;
+            self.dexterity += 1
+            self.intellect += 3
+            self.luck += 1
+        elif &#34;alchemist&#34; in r or &#34;5&#34; in r:
+            self.job = &#34;Alchemist&#34;
+            self.constitution += 2
+            self.strength += 2
+            self.intellect += 2
+
+    def xp_need(self):
+        return(30+(self.level*25+self.level*10))
+
+    def check_status(self):
+        #Character
+        print(&#34;--------------------------------------&#34;)
+        print(&#34;Level %s %s %s&#34; % (self.level,self.race,self.job))
+        print(&#34;XP: %s / %s&#34; % (self.xp,self.xp_need()))
+        print(&#34;Health: %s / %s&#34; % (self.health,self.max_health))
+        print(&#34;Mana: %s / %s&#34; % (self.mana,self.max_mana))
+        #Equipment
+        print(&#34;--------------------------------------&#34;)
+        if self.weapon != 0:
+            print(&#34;Weapon: %s&#34; % (self.weapon.name))
+        else:
+            print(&#34;Weapon: Unarmed&#34;)
+        if self.armor != 0:
+            print(&#34;Armor: %s&#34; % (self.armor.name))
+        else:
+            print(&#34;Armor: Unclothed&#34;)
+        print(&#34;Gold: %s&#34; % (self.gold))
+        #Stats
+        print(&#34;--------------------------------------&#34;)
+        print(&#34;CON: %s&#34; % (self.constitution))
+        print(&#34;STR: %s&#34; % (self.strength))
+        print(&#34;DEX: %s&#34; % (self.dexterity))
+        print(&#34;INT: %s&#34; % (self.intellect))
+        print(&#34;LUK: %s&#34; % (self.luck))
+        print(&#34;--------------------------------------&#34;)
+
+    def status(self):
+        if self.health &lt;= 0:
+            self.is_alive = False
+        else:
+            pass
+
+        if self.is_alive == False:
+            self.die()
+
+    def change_health(self, value):
+        if self.health &gt; 0:
+            self.health = self.health + value
+        elif self.health &lt;= 0:
+            self.is_alive = False
+        self.check_status
+
+    def add_to_inventory(self, item):
+        &#34;&#34;&#34;
+        Takes arg item.
+        &#34;&#34;&#34;
+        self.inventory.append(item)
+
+    def unequip_weapon(self):
+        if self.weapon == 0:
+            print(&#34;You are not wielding anything&#34;)
+        else:
+            print(self.weapon.name + &#34; was unequipped&#34;)
+            self.inventory.append(self.weapon)
+            self.weapon = 0
+
+    def equip_weapon(self, item):
+        &#34;&#34;&#34;
+        Takes arg item.
+        &#34;&#34;&#34;
+        equipped_something = False
+        for x in self.inventory:
+            if x.name.lower() == item:
+                if self.weapon != 0:
+                    self.unequip_weapon()
+                self.weapon = x
+                self.inventory.remove(x)
+                print(self.weapon.name + &#34; is now equipped&#34;)
+                equipped_something = True
+                break
+        if equipped_something == False:
+            print(&#34;That&#39;s not a weapon&#34;)
+
+    def gain_xp(self, amount):
+        &#34;&#34;&#34;
+        Takes arg amount.
+        &#34;&#34;&#34;
+        self.xp += amount
+        xpneed = self.xp_need()
+        # check for level up
+        while self.xp &gt;= xpneed:
+            self.xp -= xpneed
+            self.level += 1
+            print(&#34;Level Up!\nYou reached level %s&#34; % (self.level))
+            i = 0
+            # increase random stats
+            while i &lt; choice(range(2,4)):
+                i += 1
+                a = choice(range(1,5))
+                if (a == 1):
+                    self.constitution += 1
+                    print(&#34;Constitution increases by 1&#34;)
+                elif (a == 2):
+                    self.strength += 1
+                    print(&#34;Strength increases by 1&#34;)
+                elif (a == 3):
+                    self.dexterity += 1
+                    print(&#34;Dexterity increases by 1&#34;)
+                elif (a == 4):
+                    self.intellect += 1
+                    print(&#34;Intellect increases by 1&#34;)
+                elif (a == 5):
+                    self.luck += 1
+                    print(&#34;Luck increases by 1&#34;)
+
+            # Update resources to reflect new stats
+            update_stats()
+
+    def update_stats(self):
+        self.max_health = self.constitution*20
+        self.health = self.max_health
+        self.max_mana = self.intellect*5
+        self.mana = self.max_mana
+
+    def learn_spell(self, spell):
+        &#34;&#34;&#34;
+        Takes arg spell.
+        &#34;&#34;&#34;
+        self.spells.append(spell)
+
+    def list_inventory(self):
+        if not self.inventory:
+            print(&#34;--------------Inventory---------------&#34;)
+            print(&#34;empty&#34;)
+            print(&#34;--------------------------------------&#34;)
+        else:
+            print(&#34;--------------Inventory---------------&#34;)
+            for x in self.inventory:
+                print(x.name)
+            print(&#34;--------------------------------------&#34;)
+
+    def sell_item(self, item):
+        &#34;&#34;&#34;
+        Takes arg item.
+        &#34;&#34;&#34;
+        for x in self.inventory:
+            if x.name == item:
+                self.inventory.remove(x)
+                self.gold = self.gold + x.value
+            else:
+                print(&#34;Error: item doesn&#39;t exist&#34;)
+
+    def inspect_item(self, item):
+        for x in self.inventory:
+            if x.name == item:
+                print(x)
+
+    def die():
+        print(&#34;You&#39;re dead! Game over ):&#34;)
+        sleep(5)
+        sys.exit(0)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="classes.Player.add_to_inventory"><code class="name flex">
+<span>def <span class="ident">add_to_inventory</span></span>(<span>self, item)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Takes arg item.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def add_to_inventory(self, item):
+    &#34;&#34;&#34;
+    Takes arg item.
+    &#34;&#34;&#34;
+    self.inventory.append(item)</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.change_health"><code class="name flex">
+<span>def <span class="ident">change_health</span></span>(<span>self, value)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def change_health(self, value):
+    if self.health &gt; 0:
+        self.health = self.health + value
+    elif self.health &lt;= 0:
+        self.is_alive = False
+    self.check_status</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.check_status"><code class="name flex">
+<span>def <span class="ident">check_status</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def check_status(self):
+    #Character
+    print(&#34;--------------------------------------&#34;)
+    print(&#34;Level %s %s %s&#34; % (self.level,self.race,self.job))
+    print(&#34;XP: %s / %s&#34; % (self.xp,self.xp_need()))
+    print(&#34;Health: %s / %s&#34; % (self.health,self.max_health))
+    print(&#34;Mana: %s / %s&#34; % (self.mana,self.max_mana))
+    #Equipment
+    print(&#34;--------------------------------------&#34;)
+    if self.weapon != 0:
+        print(&#34;Weapon: %s&#34; % (self.weapon.name))
+    else:
+        print(&#34;Weapon: Unarmed&#34;)
+    if self.armor != 0:
+        print(&#34;Armor: %s&#34; % (self.armor.name))
+    else:
+        print(&#34;Armor: Unclothed&#34;)
+    print(&#34;Gold: %s&#34; % (self.gold))
+    #Stats
+    print(&#34;--------------------------------------&#34;)
+    print(&#34;CON: %s&#34; % (self.constitution))
+    print(&#34;STR: %s&#34; % (self.strength))
+    print(&#34;DEX: %s&#34; % (self.dexterity))
+    print(&#34;INT: %s&#34; % (self.intellect))
+    print(&#34;LUK: %s&#34; % (self.luck))
+    print(&#34;--------------------------------------&#34;)</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.choose_job"><code class="name flex">
+<span>def <span class="ident">choose_job</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def choose_job(self):
+    r = input(&#34;What job did you have?\n1. Warrior\n2. Hunter\n3. Thief\n4. Noble\n5. Alchemist\n&gt; &#34;).lower()
+    if &#34;warrior&#34; in r or &#34;1&#34; in r:
+        self.job = &#34;Warrior&#34;
+        self.constitution += 2
+        self.strength += 2
+        self.dexterity += 2
+    elif &#34;hunter&#34; in r or &#34;2&#34; in r:
+        self.job = &#34;Hunter&#34;
+        self.constitution += 1
+        self.strength += 1
+        self.dexterity += 3
+        self.intellect += 1
+    elif &#34;thief&#34; in r or &#34;3&#34; in r:
+        self.job = &#34;Thief&#34;
+        self.dexterity += 3
+        self.intellect += 2
+        self.luck += 3
+    elif &#34;noble&#34; in r or &#34;4&#34; in r:
+        self.job = &#34;Noble&#34;
+        self.dexterity += 1
+        self.intellect += 3
+        self.luck += 1
+    elif &#34;alchemist&#34; in r or &#34;5&#34; in r:
+        self.job = &#34;Alchemist&#34;
+        self.constitution += 2
+        self.strength += 2
+        self.intellect += 2</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.choose_race"><code class="name flex">
+<span>def <span class="ident">choose_race</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def choose_race(self):
+    r = input(&#34;Of what race were you born?\n1. Human\n2. Elf\n3. Dwarf\n&gt; &#34;).lower()
+    if &#34;human&#34; in r or &#34;1&#34; in r:
+        self.race = &#34;Human&#34;
+        self.constitution += 3
+        self.strength += 1
+        self.dexterity += 1
+        self.intellect += 1
+        self.luck += 2
+    elif &#34;elf&#34; in r or &#34;2&#34; in r:
+        self.race = &#34;Elf&#34;
+        self.constitution += 1
+        self.strength += 1
+        self.dexterity += 3
+        self.intellect += 2
+        self.luck += 1
+    elif &#34;dwarf&#34; in r or &#34;3&#34; in r:
+        self.race = &#34;Dwarf&#34;
+        self.constitution += 3
+        self.strength += 3
+        self.dexterity += 0
+        self.intellect += 1
+        self.luck += 0</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.die"><code class="name flex">
+<span>def <span class="ident">die</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def die():
+    print(&#34;You&#39;re dead! Game over ):&#34;)
+    sleep(5)
+    sys.exit(0)</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.equip_weapon"><code class="name flex">
+<span>def <span class="ident">equip_weapon</span></span>(<span>self, item)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Takes arg item.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def equip_weapon(self, item):
+    &#34;&#34;&#34;
+    Takes arg item.
+    &#34;&#34;&#34;
+    equipped_something = False
+    for x in self.inventory:
+        if x.name.lower() == item:
+            if self.weapon != 0:
+                self.unequip_weapon()
+            self.weapon = x
+            self.inventory.remove(x)
+            print(self.weapon.name + &#34; is now equipped&#34;)
+            equipped_something = True
+            break
+    if equipped_something == False:
+        print(&#34;That&#39;s not a weapon&#34;)</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.gain_xp"><code class="name flex">
+<span>def <span class="ident">gain_xp</span></span>(<span>self, amount)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Takes arg amount.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def gain_xp(self, amount):
+    &#34;&#34;&#34;
+    Takes arg amount.
+    &#34;&#34;&#34;
+    self.xp += amount
+    xpneed = self.xp_need()
+    # check for level up
+    while self.xp &gt;= xpneed:
+        self.xp -= xpneed
+        self.level += 1
+        print(&#34;Level Up!\nYou reached level %s&#34; % (self.level))
+        i = 0
+        # increase random stats
+        while i &lt; choice(range(2,4)):
+            i += 1
+            a = choice(range(1,5))
+            if (a == 1):
+                self.constitution += 1
+                print(&#34;Constitution increases by 1&#34;)
+            elif (a == 2):
+                self.strength += 1
+                print(&#34;Strength increases by 1&#34;)
+            elif (a == 3):
+                self.dexterity += 1
+                print(&#34;Dexterity increases by 1&#34;)
+            elif (a == 4):
+                self.intellect += 1
+                print(&#34;Intellect increases by 1&#34;)
+            elif (a == 5):
+                self.luck += 1
+                print(&#34;Luck increases by 1&#34;)
+
+        # Update resources to reflect new stats
+        update_stats()</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.inspect_item"><code class="name flex">
+<span>def <span class="ident">inspect_item</span></span>(<span>self, item)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def inspect_item(self, item):
+    for x in self.inventory:
+        if x.name == item:
+            print(x)</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.learn_spell"><code class="name flex">
+<span>def <span class="ident">learn_spell</span></span>(<span>self, spell)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Takes arg spell.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def learn_spell(self, spell):
+    &#34;&#34;&#34;
+    Takes arg spell.
+    &#34;&#34;&#34;
+    self.spells.append(spell)</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.list_inventory"><code class="name flex">
+<span>def <span class="ident">list_inventory</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def list_inventory(self):
+    if not self.inventory:
+        print(&#34;--------------Inventory---------------&#34;)
+        print(&#34;empty&#34;)
+        print(&#34;--------------------------------------&#34;)
+    else:
+        print(&#34;--------------Inventory---------------&#34;)
+        for x in self.inventory:
+            print(x.name)
+        print(&#34;--------------------------------------&#34;)</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.sell_item"><code class="name flex">
+<span>def <span class="ident">sell_item</span></span>(<span>self, item)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Takes arg item.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def sell_item(self, item):
+    &#34;&#34;&#34;
+    Takes arg item.
+    &#34;&#34;&#34;
+    for x in self.inventory:
+        if x.name == item:
+            self.inventory.remove(x)
+            self.gold = self.gold + x.value
+        else:
+            print(&#34;Error: item doesn&#39;t exist&#34;)</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.status"><code class="name flex">
+<span>def <span class="ident">status</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def status(self):
+    if self.health &lt;= 0:
+        self.is_alive = False
+    else:
+        pass
+
+    if self.is_alive == False:
+        self.die()</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.unequip_weapon"><code class="name flex">
+<span>def <span class="ident">unequip_weapon</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def unequip_weapon(self):
+    if self.weapon == 0:
+        print(&#34;You are not wielding anything&#34;)
+    else:
+        print(self.weapon.name + &#34; was unequipped&#34;)
+        self.inventory.append(self.weapon)
+        self.weapon = 0</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.update_stats"><code class="name flex">
+<span>def <span class="ident">update_stats</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def update_stats(self):
+    self.max_health = self.constitution*20
+    self.health = self.max_health
+    self.max_mana = self.intellect*5
+    self.mana = self.max_mana</code></pre>
+</details>
+</dd>
+<dt id="classes.Player.xp_need"><code class="name flex">
+<span>def <span class="ident">xp_need</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def xp_need(self):
+    return(30+(self.level*25+self.level*10))</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classes.Weapon"><code class="flex name class">
+<span>class <span class="ident">Weapon</span></span>
+<span>(</span><span>name, description, value, damage)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Weapons inherit from items, but have another damage var.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">class Weapon(Item):
+    &#34;&#34;&#34;Weapons inherit from items, but have another damage var.&#34;&#34;&#34;
+    def __init__(self, name, description, value, damage):
+        self.damage = damage
+        super().__init__(name, description, value)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classes.Item" href="#classes.Item">Item</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="classes.Armor" href="#classes.Armor">Armor</a></code></h4>
+</li>
+<li>
+<h4><code><a title="classes.Enemy" href="#classes.Enemy">Enemy</a></code></h4>
+<ul class="">
+<li><code><a title="classes.Enemy.change_health" href="#classes.Enemy.change_health">change_health</a></code></li>
+<li><code><a title="classes.Enemy.check_status" href="#classes.Enemy.check_status">check_status</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classes.Item" href="#classes.Item">Item</a></code></h4>
+<ul class="">
+<li><code><a title="classes.Item.description" href="#classes.Item.description">description</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classes.Player" href="#classes.Player">Player</a></code></h4>
+<ul class="two-column">
+<li><code><a title="classes.Player.add_to_inventory" href="#classes.Player.add_to_inventory">add_to_inventory</a></code></li>
+<li><code><a title="classes.Player.change_health" href="#classes.Player.change_health">change_health</a></code></li>
+<li><code><a title="classes.Player.check_status" href="#classes.Player.check_status">check_status</a></code></li>
+<li><code><a title="classes.Player.choose_job" href="#classes.Player.choose_job">choose_job</a></code></li>
+<li><code><a title="classes.Player.choose_race" href="#classes.Player.choose_race">choose_race</a></code></li>
+<li><code><a title="classes.Player.die" href="#classes.Player.die">die</a></code></li>
+<li><code><a title="classes.Player.equip_weapon" href="#classes.Player.equip_weapon">equip_weapon</a></code></li>
+<li><code><a title="classes.Player.gain_xp" href="#classes.Player.gain_xp">gain_xp</a></code></li>
+<li><code><a title="classes.Player.inspect_item" href="#classes.Player.inspect_item">inspect_item</a></code></li>
+<li><code><a title="classes.Player.learn_spell" href="#classes.Player.learn_spell">learn_spell</a></code></li>
+<li><code><a title="classes.Player.list_inventory" href="#classes.Player.list_inventory">list_inventory</a></code></li>
+<li><code><a title="classes.Player.sell_item" href="#classes.Player.sell_item">sell_item</a></code></li>
+<li><code><a title="classes.Player.status" href="#classes.Player.status">status</a></code></li>
+<li><code><a title="classes.Player.unequip_weapon" href="#classes.Player.unequip_weapon">unequip_weapon</a></code></li>
+<li><code><a title="classes.Player.update_stats" href="#classes.Player.update_stats">update_stats</a></code></li>
+<li><code><a title="classes.Player.xp_need" href="#classes.Player.xp_need">xp_need</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classes.Weapon" href="#classes.Weapon">Weapon</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.6.3</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.6.3" />
+<title>functions API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase;cursor:pointer}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>functions</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">import sys
+import os
+from random import choice
+import pickle
+from classes import *
+
+def clear_screen():
+    &#34;&#34;&#34;
+    Clears the screen
+    &#34;&#34;&#34;
+    # Clear the previously drawn text:
+    if sys.platform == &#39;win32&#39;:
+        os.system(&#39;cls&#39;) # Clears Windows terminal.
+    else:
+        os.system(&#39;clear&#39;) # Clears macOS/Linux terminal.
+
+
+# function for generating items
+def generate_item():
+    &#34;&#34;&#34;Generates a random item name from a list. The next step is appending that to the if/else statement, where a description and value are assigned based off of the name. Returns a class object Item.
+    Would like to turn this into a DIY switch statement.
+    &#34;&#34;&#34;
+    name_list = [&#34;gem&#34;,&#34;candelbra&#34;,&#34;ruby&#34;,&#34;stick&#34;,&#34;mug&#34;] # list of names that can be pulled from
+    item_name = choice(name_list) # choose from the name list at random
+
+    # check what item was generated and assign a descripion and random value from a range
+    # that fits the item&#39;s name
+    if item_name == &#34;gem&#34;:
+        item_description = &#34;a small, shiny gem&#34;
+        item_value = choice(range(100,200))
+    elif item_name == &#34;candelbra&#34;:
+        item_description = &#34;a short candelbra, clearly very old&#34;
+        item_value = choice(range(25,75))
+    elif item_name == &#34;ruby&#34;:
+        item_description = &#34;a large red ruby&#34;
+        item_value = choice(range(300,450))
+    elif item_name == &#34;stick&#34;:
+        item_description = &#34;a long, thin stick that could snap at any moment&#34;
+        item_value = choice(range(1,5))
+    elif item_name == &#34;mug&#34;:
+        item_description = &#34;a cracked mug&#34;
+        item_value = choice(range(10,20))
+
+    return Item(item_name,item_description,item_value)
+
+
+# function for generating weapons
+def generate_weapon():
+    &#34;&#34;&#34;
+    Returns class item Weapon.
+    Works the exact same as generate_item(), but with a seperated list of weapon names and an extra damage value.
+    &#34;&#34;&#34;
+    name_list = [&#34;axe&#34;,&#34;sword&#34;,&#34;club&#34;]
+    weapon_name = choice(name_list) # choose from the name list at random
+
+    # check what item is generated and assign a description and random damage value from a range
+    if weapon_name == &#34;axe&#34;:
+        weapon_description = &#34;a hefty axe&#34;
+        weapon_value = choice(range(50,90))
+        weapon_damage = choice(range(10,25))
+    elif weapon_name == &#34;sword&#34;:
+        weapon_description = &#34;a small shortsword&#34;
+        weapon_value = choice(range(70,125))
+        weapon_damage = choice(range(15,30))
+    elif weapon_name == &#34;club&#34;:
+        weapon_description = &#34;a sturdy club&#34;
+        weapon_value = choice(range(20,50))
+        weapon_damage = choice(range(5,15))
+
+    return Weapon(weapon_name,weapon_description,weapon_value,weapon_damage)
+
+
+def generate_room_inv():
+    amount_generated = choice(range(1,10))
+
+    inventory = []
+
+    for i in range(amount_generated):
+        type_gen = choice(range(1,2))
+
+        if type_gen == 1:
+            item = generate_item()
+            inventory.append(item)
+        elif type_gen == 2:
+            weapon = generate_weapon()
+            inventory.append(weapon)
+
+    return inventory
+
+
+def list_room_inv(room_inv):
+    &#34;&#34;&#34;
+    Takes arg room_inv. If it contains items, lists contents.
+    &#34;&#34;&#34;
+    if not room_inv:
+            print(&#34;Room is empty&#34;)
+    else:
+        print(&#34;In the room is: &#34;)
+        for x in room_inv:
+            print(x.name)
+
+
+def loot_item(player,item,room_inv):
+    &#34;&#34;&#34;
+    Takes args player, item, and room_inv.
+    Loops over the room inventory and if it matches the item given, appends it to the player&#39;s inventory and deletes it from the room inventory.
+    &#34;&#34;&#34;
+    for x in room_inv:
+        if x.name.lower() == item:
+            player.inventory.append(x)
+            room_inv.remove(x)
+    player.list_inventory()
+
+
+def save_game(player):
+    &#34;&#34;&#34;
+    Takes arg player.
+    Creates a data file and serializes the player class object.
+    &#34;&#34;&#34;
+    filename = &#39;data&#39;
+    outfile = open(filename,&#39;wb&#39;)
+
+    pickle.dump(player,outfile)
+    outfile.close()
+
+
+def load_game():
+    &#34;&#34;&#34;
+    Loads .data, a pickled file and returns the player object found in it.
+    &#34;&#34;&#34;
+    infile = open(&#39;./data&#39;,&#39;rb&#39;)
+    player = pickle.load(infile)
+    infile.close 
+
+    return player
+
+
+def get_action(player,room_inv,can_sell,exits):
+    &#34;&#34;&#34;
+    Performs an action based off of the player&#39;s input in a given scenario. Input is converted to lower case for easier string comparision. 
+    Takes args player, room_inv, can_sell, and exits in order to operate on different objects.
+    &#34;&#34;&#34;
+    # -----INPUT-----
+    action = input(&#34;&gt; &#34;).lower()
+
+    # check current status
+    if action == &#34;status&#34; or action == &#34;char&#34;:
+        player.check_status()
+    elif &#34;inventory&#34; in action or &#34;bag&#34; in action:
+        player.list_inventory()
+    # ------list room contents-----
+    elif &#34;look&#34; in action:
+        list_room_inv(room_inv)
+    # ------move-----
+    elif &#34;north&#34; in action:
+        if &#34;north&#34; in exits:
+            f = exits[&#34;north&#34;]
+            f(player)
+        else:
+            print(&#34;You cannot go that way.&#34;)
+    elif &#34;south&#34; in action:
+        if &#34;south&#34; in exits:
+            f = exits[&#34;south&#34;]
+            f(player)
+        else:
+            print(&#34;You cannot go that way.&#34;)
+    elif &#34;east&#34; in action:
+        if &#34;east&#34; in exits:
+            f = exits[&#34;east&#34;]
+            f(player)
+        else:
+            print(&#34;You cannot go that way.&#34;)
+    elif &#34;west&#34; in action:
+        if &#34;west&#34; in exits:
+            f = exits[&#34;west&#34;]
+            f(player)
+        else:
+            print(&#34;You cannot go that way.&#34;)
+    # -----looting-----
+    elif &#34;pick up&#34; in action or &#34;take&#34; in action or &#34;loot&#34; in action or &#34;grab&#34; in action:
+        list_room_inv(room_inv)
+        pick_up = input(&#34;What do you want to pick up?\n&gt; &#34;)
+        loot_item(player,pick_up,room_inv)
+    elif &#34;inspect&#34; in action:
+        player.list_inventory()
+        inspect = input(&#34;Inspect which item?\n&gt; &#34;)
+        player.inspect_item(inspect)
+    # ------sell items---------
+    elif action == &#34;sell&#34;:
+        player.list_inventory()
+        if can_sell == True:
+            item_to_sell = input(&#34;What do you want to sell?\n&gt; &#34;)
+            player.sell_item(item_to_sell)
+        else:
+            print(&#34;You can&#39;t sell right now.&#34;)
+    # ------inventory management------
+    elif action == &#34;wield&#34;:
+        player.list_inventory()
+        if len(player.inventory) &gt; 0:
+            item_to_equip = input(&#34;Equip which weapon?\n&gt; &#34;)
+            player.equip_weapon(item_to_equip)
+
+    elif action == &#34;stow&#34;:
+        player.unequip_weapon()
+    # -----xp-----
+    elif action == &#34;gainxp&#34;:
+        print(&#34;You gained 100 xp&#34;)
+        player.gain_xp(100)
+        # -----help menu-----
+    elif action == &#34;help&#34;:
+        print(&#34;&#34;&#34;
+        Status: Check on yourself
+        Look: Find nearby points of interest
+        Take: Brings up a list of lootable items
+        Inspect: Inspect an item in your inventory
+        North/South/East/West: Move to a new location
+        Wield: Equip a weapon from your inventory
+        Stow: Unequip your weapon and store it in your inventory
+        Drop: Remove and item from your inventory
+        Sell: Sell items if there is a vendor in the room
+        Save: Saves the game
+        &#34;&#34;&#34;)
+    # -----save game-----
+    elif action == &#34;save&#34; or action == &#34;save game&#34;:
+        save_game(player)
+    else:
+        pass
+
+    return action
+
+
+def new_game(player, first_room):
+    &#34;&#34;&#34;Takes args player (player object) and first_room(), the function that corresponds to the first room in the game.&#34;&#34;&#34;
+    clear_screen()
+    player.choose_race()
+    clear_screen()
+    player.choose_job()
+    clear_screen()
+    player.update_stats()
+    sleep(1)
+ 
+    # start new game
+    first_room(player)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="functions.clear_screen"><code class="name flex">
+<span>def <span class="ident">clear_screen</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Clears the screen</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def clear_screen():
+    &#34;&#34;&#34;
+    Clears the screen
+    &#34;&#34;&#34;
+    # Clear the previously drawn text:
+    if sys.platform == &#39;win32&#39;:
+        os.system(&#39;cls&#39;) # Clears Windows terminal.
+    else:
+        os.system(&#39;clear&#39;) # Clears macOS/Linux terminal.</code></pre>
+</details>
+</dd>
+<dt id="functions.generate_item"><code class="name flex">
+<span>def <span class="ident">generate_item</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Generates a random item name from a list. The next step is appending that to the if/else statement, where a description and value are assigned based off of the name. Returns a class object Item.
+Would like to turn this into a DIY switch statement.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def generate_item():
+    &#34;&#34;&#34;Generates a random item name from a list. The next step is appending that to the if/else statement, where a description and value are assigned based off of the name. Returns a class object Item.
+    Would like to turn this into a DIY switch statement.
+    &#34;&#34;&#34;
+    name_list = [&#34;gem&#34;,&#34;candelbra&#34;,&#34;ruby&#34;,&#34;stick&#34;,&#34;mug&#34;] # list of names that can be pulled from
+    item_name = choice(name_list) # choose from the name list at random
+
+    # check what item was generated and assign a descripion and random value from a range
+    # that fits the item&#39;s name
+    if item_name == &#34;gem&#34;:
+        item_description = &#34;a small, shiny gem&#34;
+        item_value = choice(range(100,200))
+    elif item_name == &#34;candelbra&#34;:
+        item_description = &#34;a short candelbra, clearly very old&#34;
+        item_value = choice(range(25,75))
+    elif item_name == &#34;ruby&#34;:
+        item_description = &#34;a large red ruby&#34;
+        item_value = choice(range(300,450))
+    elif item_name == &#34;stick&#34;:
+        item_description = &#34;a long, thin stick that could snap at any moment&#34;
+        item_value = choice(range(1,5))
+    elif item_name == &#34;mug&#34;:
+        item_description = &#34;a cracked mug&#34;
+        item_value = choice(range(10,20))
+
+    return Item(item_name,item_description,item_value)</code></pre>
+</details>
+</dd>
+<dt id="functions.generate_room_inv"><code class="name flex">
+<span>def <span class="ident">generate_room_inv</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def generate_room_inv():
+    amount_generated = choice(range(1,10))
+
+    inventory = []
+
+    for i in range(amount_generated):
+        type_gen = choice(range(1,2))
+
+        if type_gen == 1:
+            item = generate_item()
+            inventory.append(item)
+        elif type_gen == 2:
+            weapon = generate_weapon()
+            inventory.append(weapon)
+
+    return inventory</code></pre>
+</details>
+</dd>
+<dt id="functions.generate_weapon"><code class="name flex">
+<span>def <span class="ident">generate_weapon</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns class item Weapon.
+Works the exact same as generate_item(), but with a seperated list of weapon names and an extra damage value.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def generate_weapon():
+    &#34;&#34;&#34;
+    Returns class item Weapon.
+    Works the exact same as generate_item(), but with a seperated list of weapon names and an extra damage value.
+    &#34;&#34;&#34;
+    name_list = [&#34;axe&#34;,&#34;sword&#34;,&#34;club&#34;]
+    weapon_name = choice(name_list) # choose from the name list at random
+
+    # check what item is generated and assign a description and random damage value from a range
+    if weapon_name == &#34;axe&#34;:
+        weapon_description = &#34;a hefty axe&#34;
+        weapon_value = choice(range(50,90))
+        weapon_damage = choice(range(10,25))
+    elif weapon_name == &#34;sword&#34;:
+        weapon_description = &#34;a small shortsword&#34;
+        weapon_value = choice(range(70,125))
+        weapon_damage = choice(range(15,30))
+    elif weapon_name == &#34;club&#34;:
+        weapon_description = &#34;a sturdy club&#34;
+        weapon_value = choice(range(20,50))
+        weapon_damage = choice(range(5,15))
+
+    return Weapon(weapon_name,weapon_description,weapon_value,weapon_damage)</code></pre>
+</details>
+</dd>
+<dt id="functions.get_action"><code class="name flex">
+<span>def <span class="ident">get_action</span></span>(<span>player, room_inv, can_sell, exits)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Performs an action based off of the player's input in a given scenario. Input is converted to lower case for easier string comparision.
+Takes args player, room_inv, can_sell, and exits in order to operate on different objects.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def get_action(player,room_inv,can_sell,exits):
+    &#34;&#34;&#34;
+    Performs an action based off of the player&#39;s input in a given scenario. Input is converted to lower case for easier string comparision. 
+    Takes args player, room_inv, can_sell, and exits in order to operate on different objects.
+    &#34;&#34;&#34;
+    # -----INPUT-----
+    action = input(&#34;&gt; &#34;).lower()
+
+    # check current status
+    if action == &#34;status&#34; or action == &#34;char&#34;:
+        player.check_status()
+    elif &#34;inventory&#34; in action or &#34;bag&#34; in action:
+        player.list_inventory()
+    # ------list room contents-----
+    elif &#34;look&#34; in action:
+        list_room_inv(room_inv)
+    # ------move-----
+    elif &#34;north&#34; in action:
+        if &#34;north&#34; in exits:
+            f = exits[&#34;north&#34;]
+            f(player)
+        else:
+            print(&#34;You cannot go that way.&#34;)
+    elif &#34;south&#34; in action:
+        if &#34;south&#34; in exits:
+            f = exits[&#34;south&#34;]
+            f(player)
+        else:
+            print(&#34;You cannot go that way.&#34;)
+    elif &#34;east&#34; in action:
+        if &#34;east&#34; in exits:
+            f = exits[&#34;east&#34;]
+            f(player)
+        else:
+            print(&#34;You cannot go that way.&#34;)
+    elif &#34;west&#34; in action:
+        if &#34;west&#34; in exits:
+            f = exits[&#34;west&#34;]
+            f(player)
+        else:
+            print(&#34;You cannot go that way.&#34;)
+    # -----looting-----
+    elif &#34;pick up&#34; in action or &#34;take&#34; in action or &#34;loot&#34; in action or &#34;grab&#34; in action:
+        list_room_inv(room_inv)
+        pick_up = input(&#34;What do you want to pick up?\n&gt; &#34;)
+        loot_item(player,pick_up,room_inv)
+    elif &#34;inspect&#34; in action:
+        player.list_inventory()
+        inspect = input(&#34;Inspect which item?\n&gt; &#34;)
+        player.inspect_item(inspect)
+    # ------sell items---------
+    elif action == &#34;sell&#34;:
+        player.list_inventory()
+        if can_sell == True:
+            item_to_sell = input(&#34;What do you want to sell?\n&gt; &#34;)
+            player.sell_item(item_to_sell)
+        else:
+            print(&#34;You can&#39;t sell right now.&#34;)
+    # ------inventory management------
+    elif action == &#34;wield&#34;:
+        player.list_inventory()
+        if len(player.inventory) &gt; 0:
+            item_to_equip = input(&#34;Equip which weapon?\n&gt; &#34;)
+            player.equip_weapon(item_to_equip)
+
+    elif action == &#34;stow&#34;:
+        player.unequip_weapon()
+    # -----xp-----
+    elif action == &#34;gainxp&#34;:
+        print(&#34;You gained 100 xp&#34;)
+        player.gain_xp(100)
+        # -----help menu-----
+    elif action == &#34;help&#34;:
+        print(&#34;&#34;&#34;
+        Status: Check on yourself
+        Look: Find nearby points of interest
+        Take: Brings up a list of lootable items
+        Inspect: Inspect an item in your inventory
+        North/South/East/West: Move to a new location
+        Wield: Equip a weapon from your inventory
+        Stow: Unequip your weapon and store it in your inventory
+        Drop: Remove and item from your inventory
+        Sell: Sell items if there is a vendor in the room
+        Save: Saves the game
+        &#34;&#34;&#34;)
+    # -----save game-----
+    elif action == &#34;save&#34; or action == &#34;save game&#34;:
+        save_game(player)
+    else:
+        pass
+
+    return action</code></pre>
+</details>
+</dd>
+<dt id="functions.list_room_inv"><code class="name flex">
+<span>def <span class="ident">list_room_inv</span></span>(<span>room_inv)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Takes arg room_inv. If it contains items, lists contents.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def list_room_inv(room_inv):
+    &#34;&#34;&#34;
+    Takes arg room_inv. If it contains items, lists contents.
+    &#34;&#34;&#34;
+    if not room_inv:
+            print(&#34;Room is empty&#34;)
+    else:
+        print(&#34;In the room is: &#34;)
+        for x in room_inv:
+            print(x.name)</code></pre>
+</details>
+</dd>
+<dt id="functions.load_game"><code class="name flex">
+<span>def <span class="ident">load_game</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Loads .data, a pickled file and returns the player object found in it.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def load_game():
+    &#34;&#34;&#34;
+    Loads .data, a pickled file and returns the player object found in it.
+    &#34;&#34;&#34;
+    infile = open(&#39;./data&#39;,&#39;rb&#39;)
+    player = pickle.load(infile)
+    infile.close 
+
+    return player</code></pre>
+</details>
+</dd>
+<dt id="functions.loot_item"><code class="name flex">
+<span>def <span class="ident">loot_item</span></span>(<span>player, item, room_inv)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Takes args player, item, and room_inv.
+Loops over the room inventory and if it matches the item given, appends it to the player's inventory and deletes it from the room inventory.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def loot_item(player,item,room_inv):
+    &#34;&#34;&#34;
+    Takes args player, item, and room_inv.
+    Loops over the room inventory and if it matches the item given, appends it to the player&#39;s inventory and deletes it from the room inventory.
+    &#34;&#34;&#34;
+    for x in room_inv:
+        if x.name.lower() == item:
+            player.inventory.append(x)
+            room_inv.remove(x)
+    player.list_inventory()</code></pre>
+</details>
+</dd>
+<dt id="functions.new_game"><code class="name flex">
+<span>def <span class="ident">new_game</span></span>(<span>player, first_room)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Takes args player (player object) and first_room(), the function that corresponds to the first room in the game.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def new_game(player, first_room):
+    &#34;&#34;&#34;Takes args player (player object) and first_room(), the function that corresponds to the first room in the game.&#34;&#34;&#34;
+    clear_screen()
+    player.choose_race()
+    clear_screen()
+    player.choose_job()
+    clear_screen()
+    player.update_stats()
+    sleep(1)
+ 
+    # start new game
+    first_room(player)</code></pre>
+</details>
+</dd>
+<dt id="functions.save_game"><code class="name flex">
+<span>def <span class="ident">save_game</span></span>(<span>player)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Takes arg player.
+Creates a data file and serializes the player class object.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def save_game(player):
+    &#34;&#34;&#34;
+    Takes arg player.
+    Creates a data file and serializes the player class object.
+    &#34;&#34;&#34;
+    filename = &#39;data&#39;
+    outfile = open(filename,&#39;wb&#39;)
+
+    pickle.dump(player,outfile)
+    outfile.close()</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="functions.clear_screen" href="#functions.clear_screen">clear_screen</a></code></li>
+<li><code><a title="functions.generate_item" href="#functions.generate_item">generate_item</a></code></li>
+<li><code><a title="functions.generate_room_inv" href="#functions.generate_room_inv">generate_room_inv</a></code></li>
+<li><code><a title="functions.generate_weapon" href="#functions.generate_weapon">generate_weapon</a></code></li>
+<li><code><a title="functions.get_action" href="#functions.get_action">get_action</a></code></li>
+<li><code><a title="functions.list_room_inv" href="#functions.list_room_inv">list_room_inv</a></code></li>
+<li><code><a title="functions.load_game" href="#functions.load_game">load_game</a></code></li>
+<li><code><a title="functions.loot_item" href="#functions.loot_item">loot_item</a></code></li>
+<li><code><a title="functions.new_game" href="#functions.new_game">new_game</a></code></li>
+<li><code><a title="functions.save_game" href="#functions.save_game">save_game</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.6.3</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.6.3" />
+<title>worldmap API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase;cursor:pointer}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>worldmap</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">from classes import *
+from functions import *
+
+
+# blueprint for rooms in the worldspace
+def test_room(player):
+    &#34;&#34;&#34;
+    To create a room, initialize an inventory either with generate_room_inv(), or insert items manually, or write None.
+    Set can_sell to True or False based off of the vendor status.
+    player.location should always be set to the current room function.
+    Exits is a dictionary of available directions, with the string direction as a key and the function it corresponds to as a value.
+    &#34;&#34;&#34;
+    # intialize room inventory and variables
+    test_room_inv = [Weapon(&#34;dagger&#34;,&#34;A simple blade, dull and rusted.&#34;,5,3),Armor(&#34;rags&#34;,&#34;Gross and worn old rags, provides a tiny amount of protection.&#34;,2,1),Item(&#34;note&#34;,&#34;&#39;If you&#39;re reading this, you have been chosen. Escape from this place and find me where the sun meets the stars&#39;&#34;,0)]
+    can_sell = False
+    player.location = test_room
+    exits = {&#34;north&#34;: test_room2}
+
+    # introduction
+    print(&#34;You&#39;re standing in a small room with dank stone walls. Beside you lie a dagger stabbed into a piece of parchment. There is a tight passageway to the north.\n(type help for commands)&#34;)
+
+    # persistently get input, passing the player, the room inventory, and whether or not you can sell items in this space.
+    while True:
+        action = get_action(player,test_room_inv,True,exits)
+
+
+def test_room2(player):
+    # intialize room inventory and variables
+    test_room2_inv = [Weapon(&#34;dagger&#34;,&#34;A simple blade, dull and rusted.&#34;,5,3),Armor(&#34;old rags&#34;,&#34;Gross and worn old rags, provides a tiny amount of protection.&#34;,2,1)]
+    can_sell = False
+    player.location = test_room2
+    exits = {&#34;south&#34;: test_room}
+
+    # introduction
+    print(&#34;You enter into an empty chamber, devoid of any furnishings. There is a rusty dagger and some rags on the floor.&#34;)
+
+    # persistently get input, passing the player, the room inventory, and whether or not you can sell items in this space.
+    while True:
+        action = get_action(player,test_room2_inv,True,exits)
+
+        if action == &#34;direction&#34;:
+            do_things = &#34;foo&#34;</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="worldmap.test_room"><code class="name flex">
+<span>def <span class="ident">test_room</span></span>(<span>player)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>To create a room, initialize an inventory either with generate_room_inv(), or insert items manually, or write None.
+Set can_sell to True or False based off of the vendor status.
+player.location should always be set to the current room function.
+Exits is a dictionary of available directions, with the string direction as a key and the function it corresponds to as a value.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def test_room(player):
+    &#34;&#34;&#34;
+    To create a room, initialize an inventory either with generate_room_inv(), or insert items manually, or write None.
+    Set can_sell to True or False based off of the vendor status.
+    player.location should always be set to the current room function.
+    Exits is a dictionary of available directions, with the string direction as a key and the function it corresponds to as a value.
+    &#34;&#34;&#34;
+    # intialize room inventory and variables
+    test_room_inv = [Weapon(&#34;dagger&#34;,&#34;A simple blade, dull and rusted.&#34;,5,3),Armor(&#34;rags&#34;,&#34;Gross and worn old rags, provides a tiny amount of protection.&#34;,2,1),Item(&#34;note&#34;,&#34;&#39;If you&#39;re reading this, you have been chosen. Escape from this place and find me where the sun meets the stars&#39;&#34;,0)]
+    can_sell = False
+    player.location = test_room
+    exits = {&#34;north&#34;: test_room2}
+
+    # introduction
+    print(&#34;You&#39;re standing in a small room with dank stone walls. Beside you lie a dagger stabbed into a piece of parchment. There is a tight passageway to the north.\n(type help for commands)&#34;)
+
+    # persistently get input, passing the player, the room inventory, and whether or not you can sell items in this space.
+    while True:
+        action = get_action(player,test_room_inv,True,exits)</code></pre>
+</details>
+</dd>
+<dt id="worldmap.test_room2"><code class="name flex">
+<span>def <span class="ident">test_room2</span></span>(<span>player)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def test_room2(player):
+    # intialize room inventory and variables
+    test_room2_inv = [Weapon(&#34;dagger&#34;,&#34;A simple blade, dull and rusted.&#34;,5,3),Armor(&#34;old rags&#34;,&#34;Gross and worn old rags, provides a tiny amount of protection.&#34;,2,1)]
+    can_sell = False
+    player.location = test_room2
+    exits = {&#34;south&#34;: test_room}
+
+    # introduction
+    print(&#34;You enter into an empty chamber, devoid of any furnishings. There is a rusty dagger and some rags on the floor.&#34;)
+
+    # persistently get input, passing the player, the room inventory, and whether or not you can sell items in this space.
+    while True:
+        action = get_action(player,test_room2_inv,True,exits)
+
+        if action == &#34;direction&#34;:
+            do_things = &#34;foo&#34;</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="worldmap.test_room" href="#worldmap.test_room">test_room</a></code></li>
+<li><code><a title="worldmap.test_room2" href="#worldmap.test_room2">test_room2</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.6.3</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.6.3" />
+<title>main API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase;cursor:pointer}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>main</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">from classes import *
+from functions import *
+from worldmap import *
+from time import sleep
+
+
+# begin main
+def main():
+    &#34;&#34;&#34;
+    player should be set to Player(), which instantiates a class object Player. The next step is Try/Except loop with looks for a save data file, and if none is found, begins a new game.
+    &#34;&#34;&#34;
+    # initialize player and inventory
+    player = Player()
+
+    # tries to load game, and runs it from the beginning if no file exists
+    try:
+        player = load_game()
+        player.location(player)
+        clear_screen()
+        player.location()
+    except Exception:
+        new_game(player, test_room)
+        
+
+if __name__ == &#39;__main__&#39;:
+    main()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="main.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>player should be set to Player(), which instantiates a class object Player. The next step is Try/Except loop with looks for a save data file, and if none is found, begins a new game.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def main():
+    &#34;&#34;&#34;
+    player should be set to Player(), which instantiates a class object Player. The next step is Try/Except loop with looks for a save data file, and if none is found, begins a new game.
+    &#34;&#34;&#34;
+    # initialize player and inventory
+    player = Player()
+
+    # tries to load game, and runs it from the beginning if no file exists
+    try:
+        player = load_game()
+        player.location(player)
+        clear_screen()
+        player.location()
+    except Exception:
+        new_game(player, test_room)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="main.main" href="#main.main">main</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.6.3</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
