@@ -5,6 +5,9 @@ import pickle
 from classes import *
 
 def clear_screen():
+    """
+    Clears the screen
+    """
     # Clear the previously drawn text:
     if sys.platform == 'win32':
         os.system('cls') # Clears Windows terminal.
@@ -14,6 +17,9 @@ def clear_screen():
 
 # function for generating items
 def generate_item():
+    """Generates a random item name from a list. The next step is appending that to the if/else statement, where a description and value are assigned based off of the name. Returns a class object Item.
+    Would like to turn this into a DIY switch statement.
+    """
     name_list = ["gem","candelbra","ruby","stick","mug"] # list of names that can be pulled from
     item_name = choice(name_list) # choose from the name list at random
 
@@ -40,6 +46,10 @@ def generate_item():
 
 # function for generating weapons
 def generate_weapon():
+    """
+    Returns class item Weapon.
+    Works the exact same as generate_item(), but with a seperated list of weapon names and an extra damage value.
+    """
     name_list = ["axe","sword","club"]
     weapon_name = choice(name_list) # choose from the name list at random
 
@@ -79,6 +89,9 @@ def generate_room_inv():
 
 
 def list_room_inv(room_inv):
+    """
+    Takes arg room_inv. If it contains items, lists contents.
+    """
     if not room_inv:
             print("Room is empty")
     else:
@@ -88,6 +101,10 @@ def list_room_inv(room_inv):
 
 
 def loot_item(player,item,room_inv):
+    """
+    Takes args player, item, and room_inv.
+    Loops over the room inventory and if it matches the item given, appends it to the player's inventory and deletes it from the room inventory.
+    """
     for x in room_inv:
         if x.name.lower() == item:
             player.inventory.append(x)
@@ -96,6 +113,10 @@ def loot_item(player,item,room_inv):
 
 
 def save_game(player):
+    """
+    Takes arg player.
+    Creates a data file and serializes the player class object.
+    """
     filename = 'data'
     outfile = open(filename,'wb')
 
@@ -104,6 +125,9 @@ def save_game(player):
 
 
 def load_game():
+    """
+    Loads .data, a pickled file and returns the player object found in it.
+    """
     infile = open('./data','rb')
     player = pickle.load(infile)
     infile.close 
@@ -112,6 +136,10 @@ def load_game():
 
 
 def get_action(player,room_inv,can_sell,exits):
+    """
+    Performs an action based off of the player's input in a given scenario. Input is converted to lower case for easier string comparision. 
+    Takes args player, room_inv, can_sell, and exits in order to operate on different objects.
+    """
     # -----INPUT-----
     action = input("> ").lower()
 
@@ -201,3 +229,15 @@ def get_action(player,room_inv,can_sell,exits):
     return action
 
 
+def new_game(player, first_room):
+    """Takes args player (player object) and first_room(), the function that corresponds to the first room in the game."""
+    clear_screen()
+    player.choose_race()
+    clear_screen()
+    player.choose_job()
+    clear_screen()
+    player.update_stats()
+    sleep(1)
+ 
+    # start new game
+    first_room(player)

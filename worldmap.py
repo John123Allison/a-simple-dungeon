@@ -4,6 +4,12 @@ from functions import *
 
 # blueprint for rooms in the worldspace
 def test_room(player):
+    """
+    To create a room, initialize an inventory either with generate_room_inv(), or insert items manually, or write None.
+    Set can_sell to True or False based off of the vendor status.
+    player.location should always be set to the current room function.
+    Exits is a dictionary of available directions, with the string direction as a key and the function it corresponds to as a value.
+    """
     # intialize room inventory and variables
     test_room_inv = [Weapon("dagger","A simple blade, dull and rusted.",5,3),Armor("rags","Gross and worn old rags, provides a tiny amount of protection.",2,1),Item("note","'If you're reading this, you have been chosen. Escape from this place and find me where the sun meets the stars'",0)]
     can_sell = False

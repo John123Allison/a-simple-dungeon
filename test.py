@@ -6,6 +6,9 @@ from time import sleep
 
 # begin main
 def main():
+    """
+    player should be set to Player(), which instantiates a class object Player. The next step is Try/Except loop with looks for a save data file, and if none is found, begins a new game.
+    """
     # initialize player and inventory
     player = Player()
 
@@ -16,17 +19,7 @@ def main():
         clear_screen()
         player.location()
     except Exception:
-        # new game
-        clear_screen()
-        player.choose_race()
-        clear_screen()
-        player.choose_job()
-        clear_screen()
-        player.update_stats()
-        sleep(1)
- 
-        # start new game
-        test_room(player)
+        new_game(player, test_room)
         
 
 
