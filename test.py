@@ -22,6 +22,5 @@ def main():
         new_game(player, test_room)
         
 
-
 if __name__ == '__main__':
     main()

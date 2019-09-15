@@ -3,9 +3,9 @@ from random import choice
 import sys
 
 
-# most values of players are stored as variables, with the inventory as a simple list
-# values of the player's status are changed by methods attached to the class
 class Player():
+    """most values of players are stored as variables, with the inventory as a simple list
+    values of the player's status are changed by methods attached to the class"""
     def __init__(self):
         self.inventory = []
         self.spells = []
@@ -121,14 +121,14 @@ class Player():
         if self.is_alive == False:
             self.die()
 
-    def change_health(self,value):
+    def change_health(self, value):
         if self.health > 0:
             self.health = self.health + value
         elif self.health <= 0:
             self.is_alive = False
         self.check_status
 
-    def add_to_inventory(self,item):
+    def add_to_inventory(self, item):
         self.inventory.append(item)
 
     def unequip_weapon(self):
@@ -139,7 +139,7 @@ class Player():
             self.inventory.append(self.weapon)
             self.weapon = 0
 
-    def equip_weapon(self,item):
+    def equip_weapon(self, item):
         equipped_something = False
         for x in self.inventory:
             if x.name.lower() == item:
@@ -153,7 +153,7 @@ class Player():
         if equipped_something == False:
             print("That's not a weapon")
 
-    def gain_xp(self,amount):
+    def gain_xp(self, amount):
         self.xp += amount
         xpneed = self.xp_need()
         # check for level up
@@ -191,7 +191,7 @@ class Player():
         self.max_mana = self.intellect*5
         self.mana = self.max_mana
 
-    def learn_spell(self,spell):
+    def learn_spell(self, spell):
         self.spells.append(spell)
 
     def list_inventory(self):
@@ -205,7 +205,7 @@ class Player():
                 print(x.name)
             print("--------------------------------------")
 
-    def sell_item(self,item):
+    def sell_item(self, item):
         for x in self.inventory:
             if x.name == item:
                 self.inventory.remove(x)
@@ -213,7 +213,7 @@ class Player():
             else:
                 print("Error: item doesn't exist")
 
-    def inspect_item(self,item):
+    def inspect_item(self, item):
         for x in self.inventory:
             if x.name == item:
                 print(x)
@@ -224,10 +224,11 @@ class Player():
         sys.exit(0)
 
 
-# Enemies inherit most attributes from the player indirectly
-# They work very similarly, but are completely independent
+
 class Enemy():
-    def __init__(self,name,health,armor):
+    """Enemies inherit most attributes from the player indirectly
+    They work very similarly, but are completely independent"""
+    def __init__(self, name, health, armor):
         self.name = name
         self.health = health
         self.armor = armor
@@ -242,7 +243,7 @@ class Enemy():
         if self.is_alive == False:
             self.die()
 
-    def change_health(self,value):
+    def change_health(self, value):
         if self.health > 0:
             self.health = self.health - value
         elif self.health <= 0:
@@ -251,7 +252,7 @@ class Enemy():
 
 
 class Item():
-    def __init__(self,name,description,value):
+    def __init__(self, name, description, value):
         self.name = name
         self.description = description
         self.value = value
@@ -263,15 +264,16 @@ class Item():
         return "%s: %s. Damage: %s. Worth %s gold" % (self.name, self.description, self.damage, self.value)
 
 
-# Weapons inherit from items, but have another damage var
+
 class Weapon(Item):
-    def __init__(self,name,description,value,damage):
+    """Weapons inherit from items, but have another damage var"""
+    def __init__(self, name, description, value, damage):
         self.damage = damage
         super().__init__(name, description, value)
 
 
-# Armor inherits from items, but also have an armor var
 class Armor(Item):
-    def __init__(self,name,description,value,armor):
+    """Armor inherits from items, but also have an armor var"""
+    def __init__(self, name, description, value, armor):
         self.armor = armor
         super().__init__(name, description, value)
