@@ -18,7 +18,7 @@ def main():
         player.location(player)
         clear_screen()
         player.location()
-    except Exception:
+    except FileNotFoundError:
         new_game(player, test_room)
         
 

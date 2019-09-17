@@ -3,6 +3,7 @@ import os
 from random import choice
 import pickle
 from classes import *
+from functools import partial
 
 def clear_screen():
     """
@@ -134,81 +135,61 @@ def load_game():
 
     return player
 
-
-def get_action(player,room_inv,can_sell,exits):
-    """
-    Performs an action based off of the player's input in a given scenario. Input is converted to lower case for easier string comparision. 
-    Takes args player, room_inv, can_sell, and exits in order to operate on different objects.
-    """
-    # -----INPUT-----
-    action = input("> ").lower()
-
-    # check current status
-    if action == "status" or action == "char":
-        player.check_status()
-    elif "inventory" in action or "bag" in action:
-        player.list_inventory()
-    # ------list room contents-----
-    elif "look" in action:
-        list_room_inv(room_inv)
-    # ------move-----
-    elif "north" in action:
+def move(player, direction, exits):
+    if "north" in direction:
         if "north" in exits:
             f = exits["north"]
             f(player)
         else:
             print("You cannot go that way.")
-    elif "south" in action:
+    elif "south" in direction:
         if "south" in exits:
             f = exits["south"]
             f(player)
         else:
             print("You cannot go that way.")
-    elif "east" in action:
+    elif "east" in direction:
         if "east" in exits:
             f = exits["east"]
             f(player)
         else:
             print("You cannot go that way.")
-    elif "west" in action:
+    elif "west" in direction:
         if "west" in exits:
             f = exits["west"]
             f(player)
         else:
             print("You cannot go that way.")
-    # -----looting-----
-    elif "pick up" in action or "take" in action or "loot" in action or "grab" in action:
-        list_room_inv(room_inv)
-        pick_up = input("What do you want to pick up?\n> ")
-        loot_item(player,pick_up,room_inv)
-    elif "inspect" in action:
-        player.list_inventory()
-        inspect = input("Inspect which item?\n> ")
-        player.inspect_item(inspect)
-    # ------sell items---------
-    elif action == "sell":
-        player.list_inventory()
-        if can_sell == True:
-            item_to_sell = input("What do you want to sell?\n> ")
-            player.sell_item(item_to_sell)
-        else:
-            print("You can't sell right now.")
-    # ------inventory management------
-    elif action == "wield":
-        player.list_inventory()
-        if len(player.inventory) > 0:
-            item_to_equip = input("Equip which weapon?\n> ")
-            player.equip_weapon(item_to_equip)
 
-    elif action == "stow":
-        player.unequip_weapon()
-    # -----xp-----
-    elif action == "gainxp":
-        print("You gained 100 xp")
-        player.gain_xp(100)
-        # -----help menu-----
-    elif action == "help":
-        print("""
+
+def loot(room_inv, player):
+    list_room_inv(room_inv)
+    item = input("What do you want to pick up?\n> ")
+    loot_item(player, item,room_inv)
+
+
+def sell_item(player, can_sell):
+    player.list_inventory()
+    if can_sell == True:
+        item_to_sell = input("What do you want to sell?\n> ")
+        player.sell_item(item_to_sell)
+    else:
+        print("You can't sell right now.")
+
+
+def wield(player):
+    player.list_inventory()
+    if len(player.inventory) > 0:
+        item_to_equip = input("Equip which weapon?\n> ")
+        player.equip_weapon(item_to_equip)
+
+
+def stow(player):
+    player.unequip_weapon
+
+
+def help_menu():
+    print("""
         Status: Check on yourself
         Look: Find nearby points of interest
         Take: Brings up a list of lootable items
@@ -220,14 +201,44 @@ def get_action(player,room_inv,can_sell,exits):
         Sell: Sell items if there is a vendor in the room
         Save: Saves the game
         """)
-    # -----save game-----
-    elif action == "save" or action == "save game":
-        save_game(player)
-    else:
-        pass
 
-    return action
 
+def get_action(player, room_inv, can_sell, exits):
+    """
+    Performs an action based off of the player's input in a given scenario. Input is converted to lower case for easier string comparision. 
+    Takes args player, room_inv, can_sell, and exits in order to operate on different objects.
+
+    To modify, simply append a new action as a key and a function as a value to the dictionary mapping.
+    Works as a custom implementation of a switch case from Java.
+    """
+    # -----INPUT-----
+    action = input("> ").lower()
+
+    possible_actions = {
+        "status": partial(player.check_status),
+        "inventory": partial(player.list_inventory),
+        "look": partial(list_room_inv, room_inv),
+        "north": partial(move, player, "north", exits),
+        "east": partial(move, player, "east", exits),
+        "south": partial(move, player, "south", exits),
+        "west": partial(move, player, "west", exits),
+        "take": partial(loot, room_inv, player),
+        "loot": partial(loot, room_inv, player),
+        "wield": partial(wield, player),
+        "stow": partial(stow, player),
+        "help": partial(help_menu),
+        "save": partial(save_game, player),
+        "sell": partial(sell_item, player, can_sell)
+        }
+    
+    # execute function that corresponds to the action from the switch case
+    action_to_execute = possible_actions.get(action)
+    try:
+        action_to_execute()
+    except Exception:
+        print("Invalid command")
+        get_action(player, room_inv, can_sell, exits)
+    
 
 def new_game(player, first_room):
     """Takes args player (player object) and first_room(), the function that corresponds to the first room in the game."""
