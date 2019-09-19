@@ -72,6 +72,9 @@ def generate_weapon():
 
 
 def generate_room_inv():
+    """
+    Generates a room inventory by randomly selecting a number of items to generate, iterating over that range and picking a type of item to generate, and appending generated items to a list that is returned as the inventory.
+    """
     amount_generated = choice(range(1,10))
 
     inventory = []
@@ -136,6 +139,9 @@ def load_game():
     return player
 
 def move(player, direction, exits):
+    """
+    Takes args player, direction, exits. Exits is a dictionary stored in the room function that contains avaiable exits. Direction is the argument for where the player wishes to move.
+    """
     if "north" in direction:
         if "north" in exits:
             f = exits["north"]
@@ -162,13 +168,19 @@ def move(player, direction, exits):
             print("You cannot go that way.")
 
 
-def loot(room_inv, player):
+def loot(player, room_inv):
+    """
+    Takes args player, room_inv (room inventory). Removes an item from the room inv and adds it to the player inv based off of user input.
+    """
     list_room_inv(room_inv)
     item = input("What do you want to pick up?\n> ")
     loot_item(player, item,room_inv)
 
 
 def sell_item(player, can_sell):
+    """
+    Takes args player, can_sell. Can_sell is a boolean value that is set to true when you are in a vendor area.
+    """
     player.list_inventory()
     if can_sell == True:
         item_to_sell = input("What do you want to sell?\n> ")
@@ -178,6 +190,9 @@ def sell_item(player, can_sell):
 
 
 def wield(player):
+    """
+    Takes arg player. Lists out the users inventory and equips a weapon from it based off of user input.
+    """
     player.list_inventory()
     if len(player.inventory) > 0:
         item_to_equip = input("Equip which weapon?\n> ")
@@ -212,7 +227,7 @@ def get_action(player, room_inv, can_sell, exits):
     Works as a custom implementation of a switch case from Java.
     """
     # -----INPUT-----
-    action = input("> ").lower()
+    action = input("> ").lower().strip()
 
     possible_actions = {
         "status": partial(player.check_status),
