@@ -4,7 +4,10 @@ import sys
 
 
 class Player():
-    """Most values of players are stored as variables, with the inventory as a simple list
+    """
+    This is the basic player class, designed to be as modular as possible. 
+    The goal is that when loading data, all critical components of the game state can be drawn from this class for simplicity, such as location, inventories, etc.
+    Most values of players are stored as variables, with the inventory as a simple list
     values of the player's status are changed by methods attached to the class"""
     def __init__(self):
         self.inventory = []
@@ -19,6 +22,7 @@ class Player():
         self.gold = 0
         self.location = None
 
+        # Set default stats that are modified when a race/class is chosen.
         self.job = "Adventurer"
         self.level = 1
         self.xp = 0
@@ -83,7 +87,8 @@ class Player():
             self.intellect += 2
 
     def xp_need(self):
-        return(30+(self.level*25+self.level*10))
+        xp_needed = 30+(self.level*25+self.level*10)
+        return xp_needed
 
     def check_status(self):
         #Character
