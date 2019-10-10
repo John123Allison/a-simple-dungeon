@@ -2,8 +2,10 @@ import sys
 import os
 from random import choice
 import pickle
-from classes import *
+from time import sleep
+from a_simple_dungeon import classes
 from functools import partial
+
 
 def clear_screen():
     """
@@ -42,7 +44,7 @@ def generate_item():
         item_description = "a cracked mug"
         item_value = choice(range(10,20))
 
-    return Item(item_name,item_description,item_value)
+    return classes.Item(item_name,item_description,item_value)
 
 
 # function for generating weapons
@@ -68,7 +70,7 @@ def generate_weapon():
         weapon_value = choice(range(20,50))
         weapon_damage = choice(range(5,15))
 
-    return Weapon(weapon_name,weapon_description,weapon_value,weapon_damage)
+    return classes.Weapon(weapon_name,weapon_description,weapon_value,weapon_damage)
 
 
 def generate_room_inv():

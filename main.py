@@ -1,6 +1,4 @@
-from classes import *
-from functions import *
-from worldmap import *
+from a_simple_dungeon import classes, functions, worldmap
 from time import sleep
 
 
@@ -10,16 +8,16 @@ def main():
     player should be set to Player(), which instantiates a class object Player. The next step is Try/Except loop with looks for a save data file, and if none is found, begins a new game.
     """
     # initialize player and inventory
-    player = Player()
+    player = classes.Player()
 
     # tries to load game, and runs it from the beginning if no file exists
     try:
-        player = load_game()
+        player = functions.load_game()
         player.location(player)
-        clear_screen()
+        functions.clear_screen()
         player.location()
     except FileNotFoundError:
-        new_game(player, test_room)
+        functions.new_game(player, worldmap.test_room)
         
 
 if __name__ == '__main__':
