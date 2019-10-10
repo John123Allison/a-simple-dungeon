@@ -1,5 +1,4 @@
-from classes import *
-from functions import *
+from a_simple_dungeon import classes, functions
 
 
 # blueprint for rooms in the worldspace
@@ -11,7 +10,7 @@ def test_room(player):
     Exits is a dictionary of available directions, with the string direction as a key and the function it corresponds to as a value.
     """
     # intialize room inventory and variables
-    test_room_inv = [Weapon("dagger","A simple blade, dull and rusted.",5,3),Armor("rags","Gross and worn old rags, provides a tiny amount of protection.",2,1),Item("note","'If you're reading this, you have been chosen. Escape from this place and find me where the sun meets the stars'",0)]
+    test_room_inv = [classes.Weapon("dagger","A simple blade, dull and rusted.",5,3),classes.Armor("rags","Gross and worn old rags, provides a tiny amount of protection.",2,1),Item("note","'If you're reading this, you have been chosen. Escape from this place and find me where the sun meets the stars'",0)]
     can_sell = False
     player.location = test_room
     exits = {"north": test_room2}
@@ -21,12 +20,12 @@ def test_room(player):
 
     # persistently get input, passing the player, the room inventory, and whether or not you can sell items in this space.
     while True:
-        action = get_action(player,test_room_inv,True,exits)
+        action = functions.get_action(player,test_room_inv,True,exits)
 
 
 def test_room2(player):
     # intialize room inventory and variables
-    test_room2_inv = [Weapon("dagger","A simple blade, dull and rusted.",5,3),Armor("old rags","Gross and worn old rags, provides a tiny amount of protection.",2,1)]
+    test_room2_inv = [classes.Weapon("dagger","A simple blade, dull and rusted.",5,3),classes.Armor("old rags","Gross and worn old rags, provides a tiny amount of protection.",2,1)]
     can_sell = False
     player.location = test_room2
     exits = {"south": test_room}
@@ -36,7 +35,7 @@ def test_room2(player):
 
     # persistently get input, passing the player, the room inventory, and whether or not you can sell items in this space.
     while True:
-        action = get_action(player,test_room2_inv,True,exits)
+        action = functions.get_action(player,test_room2_inv,True,exits)
 
         if action == "direction":
             do_things = "foo"
