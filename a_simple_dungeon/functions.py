@@ -254,3 +254,16 @@ def new_game(player, first_room):
  
     # start new game
     first_room(player)
+
+
+def combat(player, enemy):
+    print("You've encountered a %s!" % (enemy.name))
+    response = input("Fight or flee?").lower()
+
+    if response == "fight":
+        enemy_attack = enemy.damage
+
+        player_attack = player.weapon.damage
+
+        player.change_health(enemy_attack)
+        enemy.change_health(player_attack)

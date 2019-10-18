@@ -233,7 +233,7 @@ class Player():
             if x.name == item:
                 print(x)
 
-    def die():
+    def die(self):
         print("You're dead! Game over ):")
         sleep(5)
         sys.exit(0)
@@ -243,10 +243,11 @@ class Enemy():
     """Enemies inherit most attributes from the player indirectly
     They work very similarly, but are completely independent.
     Initialized with name, health, armor."""
-    def __init__(self, name, health, armor):
+    def __init__(self, name, health, armor, damage):
         self.name = name
         self.health = health
         self.armor = armor
+        self.damage = damage
         self.is_alive = True
 
     def check_status(self):
