@@ -28,10 +28,7 @@ import sys
 
 
 class Player():
-    &#34;&#34;&#34;
-    This is the basic player class, designed to be as modular as possible. 
-    The goal is that when loading data, all critical components of the game state can be drawn from this class for simplicity, such as location, inventories, etc.
-    Most values of players are stored as variables, with the inventory as a simple list
+    &#34;&#34;&#34;Most values of players are stored as variables, with the inventory as a simple list
     values of the player&#39;s status are changed by methods attached to the class&#34;&#34;&#34;
     def __init__(self):
         self.inventory = []
@@ -46,7 +43,6 @@ class Player():
         self.gold = 0
         self.location = None
 
-        # Set default stats that are modified when a race/class is chosen.
         self.job = &#34;Adventurer&#34;
         self.level = 1
         self.xp = 0
@@ -111,8 +107,7 @@ class Player():
             self.intellect += 2
 
     def xp_need(self):
-        xp_needed = 30+(self.level*25+self.level*10)
-        return xp_needed
+        return(30+(self.level*25+self.level*10))
 
     def check_status(self):
         #Character
@@ -472,17 +467,12 @@ Initialized with name, description, value.</p></section>
 <span>class <span class="ident">Player</span></span>
 </code></dt>
 <dd>
-<section class="desc"><p>This is the basic player class, designed to be as modular as possible.
-The goal is that when loading data, all critical components of the game state can be drawn from this class for simplicity, such as location, inventories, etc.
-Most values of players are stored as variables, with the inventory as a simple list
+<section class="desc"><p>Most values of players are stored as variables, with the inventory as a simple list
 values of the player's status are changed by methods attached to the class</p></section>
 <details class="source">
 <summary>Source code</summary>
 <pre><code class="python">class Player():
-    &#34;&#34;&#34;
-    This is the basic player class, designed to be as modular as possible. 
-    The goal is that when loading data, all critical components of the game state can be drawn from this class for simplicity, such as location, inventories, etc.
-    Most values of players are stored as variables, with the inventory as a simple list
+    &#34;&#34;&#34;Most values of players are stored as variables, with the inventory as a simple list
     values of the player&#39;s status are changed by methods attached to the class&#34;&#34;&#34;
     def __init__(self):
         self.inventory = []
@@ -497,7 +487,6 @@ values of the player's status are changed by methods attached to the class</p></
         self.gold = 0
         self.location = None
 
-        # Set default stats that are modified when a race/class is chosen.
         self.job = &#34;Adventurer&#34;
         self.level = 1
         self.xp = 0
@@ -562,8 +551,7 @@ values of the player's status are changed by methods attached to the class</p></
             self.intellect += 2
 
     def xp_need(self):
-        xp_needed = 30+(self.level*25+self.level*10)
-        return xp_needed
+        return(30+(self.level*25+self.level*10))
 
     def check_status(self):
         #Character
@@ -1054,8 +1042,7 @@ values of the player's status are changed by methods attached to the class</p></
 <details class="source">
 <summary>Source code</summary>
 <pre><code class="python">def xp_need(self):
-    xp_needed = 30+(self.level*25+self.level*10)
-    return xp_needed</code></pre>
+    return(30+(self.level*25+self.level*10))</code></pre>
 </details>
 </dd>
 </dl>
@@ -1172,7 +1159,6 @@ import os
 from random import choice
 import pickle
 from classes import *
-from functools import partial
 
 def clear_screen():
     &#34;&#34;&#34;
@@ -1241,9 +1227,6 @@ def generate_weapon():
 
 
 def generate_room_inv():
-    &#34;&#34;&#34;
-    Generates a room inventory by randomly selecting a number of items to generate, iterating over that range and picking a type of item to generate, and appending generated items to a list that is returned as the inventory.
-    &#34;&#34;&#34;
     amount_generated = choice(range(1,10))
 
     inventory = []
@@ -1307,73 +1290,81 @@ def load_game():
 
     return player
 
-def move(player, direction, exits):
+
+def get_action(player,room_inv,can_sell,exits):
     &#34;&#34;&#34;
-    Takes args player, direction, exits. Exits is a dictionary stored in the room function that contains avaiable exits. Direction is the argument for where the player wishes to move.
+    Performs an action based off of the player&#39;s input in a given scenario. Input is converted to lower case for easier string comparision. 
+    Takes args player, room_inv, can_sell, and exits in order to operate on different objects.
     &#34;&#34;&#34;
-    if &#34;north&#34; in direction:
+    # -----INPUT-----
+    action = input(&#34;&gt; &#34;).lower()
+
+    # check current status
+    if action == &#34;status&#34; or action == &#34;char&#34;:
+        player.check_status()
+    elif &#34;inventory&#34; in action or &#34;bag&#34; in action:
+        player.list_inventory()
+    # ------list room contents-----
+    elif &#34;look&#34; in action:
+        list_room_inv(room_inv)
+    # ------move-----
+    elif &#34;north&#34; in action:
         if &#34;north&#34; in exits:
             f = exits[&#34;north&#34;]
             f(player)
         else:
             print(&#34;You cannot go that way.&#34;)
-    elif &#34;south&#34; in direction:
+    elif &#34;south&#34; in action:
         if &#34;south&#34; in exits:
             f = exits[&#34;south&#34;]
             f(player)
         else:
             print(&#34;You cannot go that way.&#34;)
-    elif &#34;east&#34; in direction:
+    elif &#34;east&#34; in action:
         if &#34;east&#34; in exits:
             f = exits[&#34;east&#34;]
             f(player)
         else:
             print(&#34;You cannot go that way.&#34;)
-    elif &#34;west&#34; in direction:
+    elif &#34;west&#34; in action:
         if &#34;west&#34; in exits:
             f = exits[&#34;west&#34;]
             f(player)
         else:
             print(&#34;You cannot go that way.&#34;)
+    # -----looting-----
+    elif &#34;pick up&#34; in action or &#34;take&#34; in action or &#34;loot&#34; in action or &#34;grab&#34; in action:
+        list_room_inv(room_inv)
+        pick_up = input(&#34;What do you want to pick up?\n&gt; &#34;)
+        loot_item(player,pick_up,room_inv)
+    elif &#34;inspect&#34; in action:
+        player.list_inventory()
+        inspect = input(&#34;Inspect which item?\n&gt; &#34;)
+        player.inspect_item(inspect)
+    # ------sell items---------
+    elif action == &#34;sell&#34;:
+        player.list_inventory()
+        if can_sell == True:
+            item_to_sell = input(&#34;What do you want to sell?\n&gt; &#34;)
+            player.sell_item(item_to_sell)
+        else:
+            print(&#34;You can&#39;t sell right now.&#34;)
+    # ------inventory management------
+    elif action == &#34;wield&#34;:
+        player.list_inventory()
+        if len(player.inventory) &gt; 0:
+            item_to_equip = input(&#34;Equip which weapon?\n&gt; &#34;)
+            player.equip_weapon(item_to_equip)
 
-
-def loot(player, room_inv):
-    &#34;&#34;&#34;
-    Takes args player, room_inv (room inventory). Removes an item from the room inv and adds it to the player inv based off of user input.
-    &#34;&#34;&#34;
-    list_room_inv(room_inv)
-    item = input(&#34;What do you want to pick up?\n&gt; &#34;)
-    loot_item(player, item,room_inv)
-
-
-def sell_item(player, can_sell):
-    &#34;&#34;&#34;
-    Takes args player, can_sell. Can_sell is a boolean value that is set to true when you are in a vendor area.
-    &#34;&#34;&#34;
-    player.list_inventory()
-    if can_sell == True:
-        item_to_sell = input(&#34;What do you want to sell?\n&gt; &#34;)
-        player.sell_item(item_to_sell)
-    else:
-        print(&#34;You can&#39;t sell right now.&#34;)
-
-
-def wield(player):
-    &#34;&#34;&#34;
-    Takes arg player. Lists out the users inventory and equips a weapon from it based off of user input.
-    &#34;&#34;&#34;
-    player.list_inventory()
-    if len(player.inventory) &gt; 0:
-        item_to_equip = input(&#34;Equip which weapon?\n&gt; &#34;)
-        player.equip_weapon(item_to_equip)
-
-
-def stow(player):
-    player.unequip_weapon
-
-
-def help_menu():
-    print(&#34;&#34;&#34;
+    elif action == &#34;stow&#34;:
+        player.unequip_weapon()
+    # -----xp-----
+    elif action == &#34;gainxp&#34;:
+        print(&#34;You gained 100 xp&#34;)
+        player.gain_xp(100)
+        # -----help menu-----
+    elif action == &#34;help&#34;:
+        print(&#34;&#34;&#34;
         Status: Check on yourself
         Look: Find nearby points of interest
         Take: Brings up a list of lootable items
@@ -1385,44 +1376,14 @@ def help_menu():
         Sell: Sell items if there is a vendor in the room
         Save: Saves the game
         &#34;&#34;&#34;)
+    # -----save game-----
+    elif action == &#34;save&#34; or action == &#34;save game&#34;:
+        save_game(player)
+    else:
+        pass
 
+    return action
 
-def get_action(player, room_inv, can_sell, exits):
-    &#34;&#34;&#34;
-    Performs an action based off of the player&#39;s input in a given scenario. Input is converted to lower case for easier string comparision. 
-    Takes args player, room_inv, can_sell, and exits in order to operate on different objects.
-
-    To modify, simply append a new action as a key and a function as a value to the dictionary mapping.
-    Works as a custom implementation of a switch case from Java.
-    &#34;&#34;&#34;
-    # -----INPUT-----
-    action = input(&#34;&gt; &#34;).lower().strip()
-
-    possible_actions = {
-        &#34;status&#34;: partial(player.check_status),
-        &#34;inventory&#34;: partial(player.list_inventory),
-        &#34;look&#34;: partial(list_room_inv, room_inv),
-        &#34;north&#34;: partial(move, player, &#34;north&#34;, exits),
-        &#34;east&#34;: partial(move, player, &#34;east&#34;, exits),
-        &#34;south&#34;: partial(move, player, &#34;south&#34;, exits),
-        &#34;west&#34;: partial(move, player, &#34;west&#34;, exits),
-        &#34;take&#34;: partial(loot, room_inv, player),
-        &#34;loot&#34;: partial(loot, room_inv, player),
-        &#34;wield&#34;: partial(wield, player),
-        &#34;stow&#34;: partial(stow, player),
-        &#34;help&#34;: partial(help_menu),
-        &#34;save&#34;: partial(save_game, player),
-        &#34;sell&#34;: partial(sell_item, player, can_sell)
-        }
-    
-    # execute function that corresponds to the action from the switch case
-    action_to_execute = possible_actions.get(action)
-    try:
-        action_to_execute()
-    except Exception:
-        print(&#34;Invalid command&#34;)
-        get_action(player, room_inv, can_sell, exits)
-    
 
 def new_game(player, first_room):
     &#34;&#34;&#34;Takes args player (player object) and first_room(), the function that corresponds to the first room in the game.&#34;&#34;&#34;
@@ -1503,13 +1464,10 @@ Would like to turn this into a DIY switch statement.</p></section>
 <span>def <span class="ident">generate_room_inv</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Generates a room inventory by randomly selecting a number of items to generate, iterating over that range and picking a type of item to generate, and appending generated items to a list that is returned as the inventory.</p></section>
+<section class="desc"></section>
 <details class="source">
 <summary>Source code</summary>
 <pre><code class="python">def generate_room_inv():
-    &#34;&#34;&#34;
-    Generates a room inventory by randomly selecting a number of items to generate, iterating over that range and picking a type of item to generate, and appending generated items to a list that is returned as the inventory.
-    &#34;&#34;&#34;
     amount_generated = choice(range(1,10))
 
     inventory = []
@@ -1565,57 +1523,83 @@ Works the exact same as generate_item(), but with a seperated list of weapon nam
 </code></dt>
 <dd>
 <section class="desc"><p>Performs an action based off of the player's input in a given scenario. Input is converted to lower case for easier string comparision.
-Takes args player, room_inv, can_sell, and exits in order to operate on different objects.</p>
-<p>To modify, simply append a new action as a key and a function as a value to the dictionary mapping.
-Works as a custom implementation of a switch case from Java.</p></section>
+Takes args player, room_inv, can_sell, and exits in order to operate on different objects.</p></section>
 <details class="source">
 <summary>Source code</summary>
-<pre><code class="python">def get_action(player, room_inv, can_sell, exits):
+<pre><code class="python">def get_action(player,room_inv,can_sell,exits):
     &#34;&#34;&#34;
     Performs an action based off of the player&#39;s input in a given scenario. Input is converted to lower case for easier string comparision. 
     Takes args player, room_inv, can_sell, and exits in order to operate on different objects.
-
-    To modify, simply append a new action as a key and a function as a value to the dictionary mapping.
-    Works as a custom implementation of a switch case from Java.
     &#34;&#34;&#34;
     # -----INPUT-----
-    action = input(&#34;&gt; &#34;).lower().strip()
+    action = input(&#34;&gt; &#34;).lower()
 
-    possible_actions = {
-        &#34;status&#34;: partial(player.check_status),
-        &#34;inventory&#34;: partial(player.list_inventory),
-        &#34;look&#34;: partial(list_room_inv, room_inv),
-        &#34;north&#34;: partial(move, player, &#34;north&#34;, exits),
-        &#34;east&#34;: partial(move, player, &#34;east&#34;, exits),
-        &#34;south&#34;: partial(move, player, &#34;south&#34;, exits),
-        &#34;west&#34;: partial(move, player, &#34;west&#34;, exits),
-        &#34;take&#34;: partial(loot, room_inv, player),
-        &#34;loot&#34;: partial(loot, room_inv, player),
-        &#34;wield&#34;: partial(wield, player),
-        &#34;stow&#34;: partial(stow, player),
-        &#34;help&#34;: partial(help_menu),
-        &#34;save&#34;: partial(save_game, player),
-        &#34;sell&#34;: partial(sell_item, player, can_sell)
-        }
-    
-    # execute function that corresponds to the action from the switch case
-    action_to_execute = possible_actions.get(action)
-    try:
-        action_to_execute()
-    except Exception:
-        print(&#34;Invalid command&#34;)
-        get_action(player, room_inv, can_sell, exits)</code></pre>
-</details>
-</dd>
-<dt id="functions.help_menu"><code class="name flex">
-<span>def <span class="ident">help_menu</span></span>(<span>)</span>
-</code></dt>
-<dd>
-<section class="desc"></section>
-<details class="source">
-<summary>Source code</summary>
-<pre><code class="python">def help_menu():
-    print(&#34;&#34;&#34;
+    # check current status
+    if action == &#34;status&#34; or action == &#34;char&#34;:
+        player.check_status()
+    elif &#34;inventory&#34; in action or &#34;bag&#34; in action:
+        player.list_inventory()
+    # ------list room contents-----
+    elif &#34;look&#34; in action:
+        list_room_inv(room_inv)
+    # ------move-----
+    elif &#34;north&#34; in action:
+        if &#34;north&#34; in exits:
+            f = exits[&#34;north&#34;]
+            f(player)
+        else:
+            print(&#34;You cannot go that way.&#34;)
+    elif &#34;south&#34; in action:
+        if &#34;south&#34; in exits:
+            f = exits[&#34;south&#34;]
+            f(player)
+        else:
+            print(&#34;You cannot go that way.&#34;)
+    elif &#34;east&#34; in action:
+        if &#34;east&#34; in exits:
+            f = exits[&#34;east&#34;]
+            f(player)
+        else:
+            print(&#34;You cannot go that way.&#34;)
+    elif &#34;west&#34; in action:
+        if &#34;west&#34; in exits:
+            f = exits[&#34;west&#34;]
+            f(player)
+        else:
+            print(&#34;You cannot go that way.&#34;)
+    # -----looting-----
+    elif &#34;pick up&#34; in action or &#34;take&#34; in action or &#34;loot&#34; in action or &#34;grab&#34; in action:
+        list_room_inv(room_inv)
+        pick_up = input(&#34;What do you want to pick up?\n&gt; &#34;)
+        loot_item(player,pick_up,room_inv)
+    elif &#34;inspect&#34; in action:
+        player.list_inventory()
+        inspect = input(&#34;Inspect which item?\n&gt; &#34;)
+        player.inspect_item(inspect)
+    # ------sell items---------
+    elif action == &#34;sell&#34;:
+        player.list_inventory()
+        if can_sell == True:
+            item_to_sell = input(&#34;What do you want to sell?\n&gt; &#34;)
+            player.sell_item(item_to_sell)
+        else:
+            print(&#34;You can&#39;t sell right now.&#34;)
+    # ------inventory management------
+    elif action == &#34;wield&#34;:
+        player.list_inventory()
+        if len(player.inventory) &gt; 0:
+            item_to_equip = input(&#34;Equip which weapon?\n&gt; &#34;)
+            player.equip_weapon(item_to_equip)
+
+    elif action == &#34;stow&#34;:
+        player.unequip_weapon()
+    # -----xp-----
+    elif action == &#34;gainxp&#34;:
+        print(&#34;You gained 100 xp&#34;)
+        player.gain_xp(100)
+        # -----help menu-----
+    elif action == &#34;help&#34;:
+        print(&#34;&#34;&#34;
         Status: Check on yourself
         Look: Find nearby points of interest
         Take: Brings up a list of lootable items
@@ -1626,7 +1610,14 @@ Works as a custom implementation of a switch case from Java.</p></section>
         Drop: Remove and item from your inventory
         Sell: Sell items if there is a vendor in the room
         Save: Saves the game
-        &#34;&#34;&#34;)</code></pre>
+        &#34;&#34;&#34;)
+    # -----save game-----
+    elif action == &#34;save&#34; or action == &#34;save game&#34;:
+        save_game(player)
+    else:
+        pass
+
+    return action</code></pre>
 </details>
 </dd>
 <dt id="functions.list_room_inv"><code class="name flex">
@@ -1666,22 +1657,6 @@ Works as a custom implementation of a switch case from Java.</p></section>
     return player</code></pre>
 </details>
 </dd>
-<dt id="functions.loot"><code class="name flex">
-<span>def <span class="ident">loot</span></span>(<span>player, room_inv)</span>
-</code></dt>
-<dd>
-<section class="desc"><p>Takes args player, room_inv (room inventory). Removes an item from the room inv and adds it to the player inv based off of user input.</p></section>
-<details class="source">
-<summary>Source code</summary>
-<pre><code class="python">def loot(player, room_inv):
-    &#34;&#34;&#34;
-    Takes args player, room_inv (room inventory). Removes an item from the room inv and adds it to the player inv based off of user input.
-    &#34;&#34;&#34;
-    list_room_inv(room_inv)
-    item = input(&#34;What do you want to pick up?\n&gt; &#34;)
-    loot_item(player, item,room_inv)</code></pre>
-</details>
-</dd>
 <dt id="functions.loot_item"><code class="name flex">
 <span>def <span class="ident">loot_item</span></span>(<span>player, item, room_inv)</span>
 </code></dt>
@@ -1700,43 +1675,6 @@ Loops over the room inventory and if it matches the item given, appends it to th
             player.inventory.append(x)
             room_inv.remove(x)
     player.list_inventory()</code></pre>
-</details>
-</dd>
-<dt id="functions.move"><code class="name flex">
-<span>def <span class="ident">move</span></span>(<span>player, direction, exits)</span>
-</code></dt>
-<dd>
-<section class="desc"><p>Takes args player, direction, exits. Exits is a dictionary stored in the room function that contains avaiable exits. Direction is the argument for where the player wishes to move.</p></section>
-<details class="source">
-<summary>Source code</summary>
-<pre><code class="python">def move(player, direction, exits):
-    &#34;&#34;&#34;
-    Takes args player, direction, exits. Exits is a dictionary stored in the room function that contains avaiable exits. Direction is the argument for where the player wishes to move.
-    &#34;&#34;&#34;
-    if &#34;north&#34; in direction:
-        if &#34;north&#34; in exits:
-            f = exits[&#34;north&#34;]
-            f(player)
-        else:
-            print(&#34;You cannot go that way.&#34;)
-    elif &#34;south&#34; in direction:
-        if &#34;south&#34; in exits:
-            f = exits[&#34;south&#34;]
-            f(player)
-        else:
-            print(&#34;You cannot go that way.&#34;)
-    elif &#34;east&#34; in direction:
-        if &#34;east&#34; in exits:
-            f = exits[&#34;east&#34;]
-            f(player)
-        else:
-            print(&#34;You cannot go that way.&#34;)
-    elif &#34;west&#34; in direction:
-        if &#34;west&#34; in exits:
-            f = exits[&#34;west&#34;]
-            f(player)
-        else:
-            print(&#34;You cannot go that way.&#34;)</code></pre>
 </details>
 </dd>
 <dt id="functions.new_game"><code class="name flex">
@@ -1780,53 +1718,6 @@ Creates a data file and serializes the player class object.</p></section>
     outfile.close()</code></pre>
 </details>
 </dd>
-<dt id="functions.sell_item"><code class="name flex">
-<span>def <span class="ident">sell_item</span></span>(<span>player, can_sell)</span>
-</code></dt>
-<dd>
-<section class="desc"><p>Takes args player, can_sell. Can_sell is a boolean value that is set to true when you are in a vendor area.</p></section>
-<details class="source">
-<summary>Source code</summary>
-<pre><code class="python">def sell_item(player, can_sell):
-    &#34;&#34;&#34;
-    Takes args player, can_sell. Can_sell is a boolean value that is set to true when you are in a vendor area.
-    &#34;&#34;&#34;
-    player.list_inventory()
-    if can_sell == True:
-        item_to_sell = input(&#34;What do you want to sell?\n&gt; &#34;)
-        player.sell_item(item_to_sell)
-    else:
-        print(&#34;You can&#39;t sell right now.&#34;)</code></pre>
-</details>
-</dd>
-<dt id="functions.stow"><code class="name flex">
-<span>def <span class="ident">stow</span></span>(<span>player)</span>
-</code></dt>
-<dd>
-<section class="desc"></section>
-<details class="source">
-<summary>Source code</summary>
-<pre><code class="python">def stow(player):
-    player.unequip_weapon</code></pre>
-</details>
-</dd>
-<dt id="functions.wield"><code class="name flex">
-<span>def <span class="ident">wield</span></span>(<span>player)</span>
-</code></dt>
-<dd>
-<section class="desc"><p>Takes arg player. Lists out the users inventory and equips a weapon from it based off of user input.</p></section>
-<details class="source">
-<summary>Source code</summary>
-<pre><code class="python">def wield(player):
-    &#34;&#34;&#34;
-    Takes arg player. Lists out the users inventory and equips a weapon from it based off of user input.
-    &#34;&#34;&#34;
-    player.list_inventory()
-    if len(player.inventory) &gt; 0:
-        item_to_equip = input(&#34;Equip which weapon?\n&gt; &#34;)
-        player.equip_weapon(item_to_equip)</code></pre>
-</details>
-</dd>
 </dl>
 </section>
 <section>
@@ -1845,17 +1736,11 @@ Creates a data file and serializes the player class object.</p></section>
 <li><code><a title="functions.generate_room_inv" href="#functions.generate_room_inv">generate_room_inv</a></code></li>
 <li><code><a title="functions.generate_weapon" href="#functions.generate_weapon">generate_weapon</a></code></li>
 <li><code><a title="functions.get_action" href="#functions.get_action">get_action</a></code></li>
-<li><code><a title="functions.help_menu" href="#functions.help_menu">help_menu</a></code></li>
 <li><code><a title="functions.list_room_inv" href="#functions.list_room_inv">list_room_inv</a></code></li>
 <li><code><a title="functions.load_game" href="#functions.load_game">load_game</a></code></li>
-<li><code><a title="functions.loot" href="#functions.loot">loot</a></code></li>
 <li><code><a title="functions.loot_item" href="#functions.loot_item">loot_item</a></code></li>
-<li><code><a title="functions.move" href="#functions.move">move</a></code></li>
 <li><code><a title="functions.new_game" href="#functions.new_game">new_game</a></code></li>
 <li><code><a title="functions.save_game" href="#functions.save_game">save_game</a></code></li>
-<li><code><a title="functions.sell_item" href="#functions.sell_item">sell_item</a></code></li>
-<li><code><a title="functions.stow" href="#functions.stow">stow</a></code></li>
-<li><code><a title="functions.wield" href="#functions.wield">wield</a></code></li>
 </ul>
 </li>
 </ul>
@@ -1931,7 +1816,10 @@ def test_room2(player):
 
     # persistently get input, passing the player, the room inventory, and whether or not you can sell items in this space.
     while True:
-        action = get_action(player,test_room2_inv,True,exits)</code></pre>
+        action = get_action(player,test_room2_inv,True,exits)
+
+        if action == &#34;direction&#34;:
+            do_things = &#34;foo&#34;</code></pre>
 </details>
 </section>
 <section>
@@ -1991,7 +1879,10 @@ Exits is a dictionary of available directions, with the string direction as a ke
 
     # persistently get input, passing the player, the room inventory, and whether or not you can sell items in this space.
     while True:
-        action = get_action(player,test_room2_inv,True,exits)</code></pre>
+        action = get_action(player,test_room2_inv,True,exits)
+
+        if action == &#34;direction&#34;:
+            do_things = &#34;foo&#34;</code></pre>
 </details>
 </dd>
 </dl>
@@ -2009,6 +1900,116 @@ Exits is a dictionary of available directions, with the string direction as a ke
 <ul class="">
 <li><code><a title="worldmap.test_room" href="#worldmap.test_room">test_room</a></code></li>
 <li><code><a title="worldmap.test_room2" href="#worldmap.test_room2">test_room2</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.6.3</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.6.3" />
+<title>main API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase;cursor:pointer}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>main</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">from classes import *
+from functions import *
+from worldmap import *
+from time import sleep
+
+
+# begin main
+def main():
+    &#34;&#34;&#34;
+    player should be set to Player(), which instantiates a class object Player. The next step is Try/Except loop with looks for a save data file, and if none is found, begins a new game.
+    &#34;&#34;&#34;
+    # initialize player and inventory
+    player = Player()
+
+    # tries to load game, and runs it from the beginning if no file exists
+    try:
+        player = load_game()
+        player.location(player)
+        clear_screen()
+        player.location()
+    except Exception:
+        new_game(player, test_room)
+        
+
+if __name__ == &#39;__main__&#39;:
+    main()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="main.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>player should be set to Player(), which instantiates a class object Player. The next step is Try/Except loop with looks for a save data file, and if none is found, begins a new game.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def main():
+    &#34;&#34;&#34;
+    player should be set to Player(), which instantiates a class object Player. The next step is Try/Except loop with looks for a save data file, and if none is found, begins a new game.
+    &#34;&#34;&#34;
+    # initialize player and inventory
+    player = Player()
+
+    # tries to load game, and runs it from the beginning if no file exists
+    try:
+        player = load_game()
+        player.location(player)
+        clear_screen()
+        player.location()
+    except Exception:
+        new_game(player, test_room)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="main.main" href="#main.main">main</a></code></li>
 </ul>
 </li>
 </ul>
