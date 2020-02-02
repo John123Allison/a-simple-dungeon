@@ -5,7 +5,7 @@ import sys
 
 class Player():
     """
-    This is the basic player class, designed to be as modular as possible. 
+    This is the basic player class, designed to be as modular as possible.
     The goal is that when loading data, all critical components of the game state can be drawn from this class for simplicity, such as location, inventories, etc.
     Most values of players are stored as variables, with the inventory as a simple list
     values of the player's status are changed by methods attached to the class"""
@@ -87,8 +87,7 @@ class Player():
             self.intellect += 2
 
     def xp_need(self):
-        xp_needed = 30+(self.level*25+self.level*10)
-        return xp_needed
+        return 30+(self.level*25+self.level*10)
 
     def check_status(self):
         #Character

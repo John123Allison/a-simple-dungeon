@@ -170,7 +170,7 @@ def move(player, direction, exits):
             print("You cannot go that way.")
 
 
-def loot(player, room_inv):
+def loot(room_inv, player):
     """
     Takes args player, room_inv (room inventory). Removes an item from the room inv and adds it to the player inv based off of user input.
     """
