@@ -36,6 +36,3 @@ def test_room2(player):
     # persistently get input, passing the player, the room inventory, and whether or not you can sell items in this space.
     while True:
         action = functions.get_action(player,test_room2_inv,True,exits)
-
-        if action == "direction":
-            do_things = "foo"
